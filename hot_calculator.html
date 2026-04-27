@@ -1,0 +1,2406 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>HOT Calculator · Musk Air A32X</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ================================================================
+   COLOR & TYPE SYSTEM — light theme, Musk pink/purple accents
+   ================================================================ */
+:root {
+  /* Base */
+  --bg: #fafafc;
+  --bg-soft: #f4f4f8;
+  --surface: #ffffff;
+  --surface-2: #faf6fb;
+  --line: #e8e6ed;
+  --line-strong: #d4d0db;
+
+  /* Text */
+  --ink: #1a1620;
+  --ink-2: #4a4555;
+  --ink-3: #797383;
+  --ink-faint: #aaa3b3;
+
+  /* Brand */
+  --musk-magenta: #C8006B;
+  --musk-magenta-2: #a30058;
+  --musk-magenta-soft: #fde6f0;
+  --musk-purple:  #702082;
+  --musk-purple-soft: #f3e7f6;
+
+  /* Semantic */
+  --go: #00a651;
+  --go-soft: #e6f7ee;
+  --caution: #d97706;
+  --caution-soft: #fef3e2;
+  --stop: #d31f3c;
+  --stop-soft: #fde7eb;
+  --info: #0e6cbb;
+  --info-soft: #e7f1fa;
+
+  /* Sizes */
+  --fs-display: 3rem;
+  --fs-h1: 1.4rem;
+  --fs-h2: 1rem;
+  --fs-body: 0.94rem;
+  --fs-small: 0.82rem;
+  --fs-tiny: 0.72rem;
+
+  --radius: 8px;
+  --radius-sm: 5px;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { font-size: 16px; }
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: "Inter", system-ui, -apple-system, sans-serif;
+  font-size: var(--fs-body);
+  line-height: 1.5;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  background-image:
+    radial-gradient(ellipse 90% 60% at 50% -10%, rgba(200,0,107,0.045) 0%, transparent 60%),
+    radial-gradient(ellipse 50% 30% at 100% 50%, rgba(112,32,130,0.035) 0%, transparent 60%);
+  background-attachment: fixed;
+}
+
+/* =============================== HEADER =============================== */
+header.top {
+  background: white;
+  border-bottom: 1px solid var(--line);
+  position: sticky; top: 0; z-index: 20;
+  box-shadow: 0 1px 0 rgba(0,0,0,0.02);
+}
+.top-inner {
+  max-width: 1100px; margin: 0 auto;
+  padding: 14px 20px;
+  display: flex; flex-direction: column; gap: 4px;
+}
+.top-row { display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; }
+.brand {
+  font-family: "Inter", sans-serif;
+  font-weight: 700; font-size: 0.95rem;
+  letter-spacing: 1.5px; text-transform: uppercase;
+  color: var(--musk-magenta);
+  display: inline-flex; align-items: center; gap: 6px;
+}
+.brand::before {
+  content: "▲"; color: var(--musk-purple);
+  font-size: 0.9em;
+}
+h1.title {
+  font-family: "Inter", sans-serif;
+  font-weight: 700; font-size: var(--fs-h1);
+  letter-spacing: -0.2px;
+  color: var(--ink);
+}
+.revtag {
+  font-family: "JetBrains Mono", monospace;
+  font-size: var(--fs-tiny);
+  color: var(--ink-3);
+  background: var(--bg-soft);
+  border: 1px solid var(--line);
+  padding: 3px 8px;
+  border-radius: 3px;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  margin-left: auto;
+}
+.tagline {
+  color: var(--ink-3); font-size: var(--fs-small);
+}
+
+/* =============================== LAYOUT =============================== */
+main {
+  max-width: 1100px; margin: 0 auto;
+  padding: 18px 20px 40px;
+  display: grid; gap: 16px;
+}
+@media (min-width: 900px) {
+  main { grid-template-columns: 1fr 1fr; gap: 18px; padding: 22px 20px 50px; }
+  .full-row { grid-column: 1 / -1; }
+}
+.card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+.card-head {
+  padding: 11px 16px;
+  border-bottom: 1px solid var(--line);
+  display: flex; align-items: center; gap: 10px;
+  background: var(--surface-2);
+}
+.card-head .num {
+  font-family: "JetBrains Mono", monospace;
+  font-size: var(--fs-tiny);
+  color: var(--musk-magenta);
+  background: var(--musk-magenta-soft);
+  padding: 3px 7px; border-radius: 3px;
+  letter-spacing: 0.5px;
+  font-weight: 600;
+}
+.card-head h2 {
+  font-family: "Inter", sans-serif;
+  font-weight: 600; font-size: var(--fs-h2);
+  letter-spacing: 0.2px;
+  color: var(--ink);
+}
+.card-body { padding: 16px; }
+
+/* =============================== ALWAYS-VISIBLE WARNINGS =============================== */
+.always-warn {
+  grid-column: 1 / -1;
+  background: var(--stop-soft);
+  border: 1px solid #f5b8c4;
+  border-left: 4px solid var(--stop);
+  border-radius: var(--radius);
+  padding: 14px 16px;
+  font-size: var(--fs-small);
+  color: #6b1525;
+  display: flex; gap: 12px;
+  align-items: flex-start;
+}
+.always-warn .ico {
+  color: var(--stop); font-weight: 700;
+  font-family: "JetBrains Mono", monospace;
+  flex: 0 0 auto; font-size: 1.1em;
+  background: white;
+  width: 22px; height: 22px;
+  border-radius: 50%;
+  display: inline-flex; align-items: center; justify-content: center;
+  border: 1px solid var(--stop);
+}
+.always-warn strong { color: #931b30; font-weight: 700; }
+.always-warn ul { margin: 6px 0 0 18px; }
+.always-warn li { margin: 2px 0; }
+
+.disclaimer {
+  grid-column: 1 / -1;
+  background: var(--caution-soft);
+  border: 1px solid #fbd591;
+  border-left: 4px solid var(--caution);
+  border-radius: var(--radius);
+  padding: 11px 14px;
+  font-size: var(--fs-small);
+  color: #7a4408;
+  display: flex; gap: 10px;
+  align-items: flex-start;
+}
+.disclaimer .ico {
+  color: var(--caution); font-weight: 700;
+  font-family: "JetBrains Mono", monospace;
+  flex: 0 0 auto;
+}
+.disclaimer strong { color: #6a3a06; font-weight: 700; }
+
+/* =============================== MODE TOGGLE =============================== */
+.mode-toggle {
+  grid-column: 1 / -1;
+  display: flex;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  overflow: hidden;
+  background: var(--surface);
+}
+.mode-btn {
+  flex: 1;
+  padding: 13px 16px;
+  background: transparent;
+  border: none; cursor: pointer;
+  font-family: "Inter", sans-serif;
+  font-weight: 600;
+  font-size: var(--fs-body);
+  color: var(--ink-3);
+  letter-spacing: 0.3px;
+  border-right: 1px solid var(--line);
+  transition: all 0.15s;
+  text-align: center;
+}
+.mode-btn:last-child { border-right: none; }
+.mode-btn:hover { background: var(--bg-soft); color: var(--ink); }
+.mode-btn.active {
+  background: var(--musk-magenta-soft);
+  color: var(--musk-magenta);
+  box-shadow: inset 0 -3px 0 var(--musk-magenta);
+}
+.mode-btn .sub {
+  display: block; font-size: var(--fs-tiny);
+  color: var(--ink-faint);
+  font-weight: 400; margin-top: 2px;
+}
+.mode-btn.active .sub { color: var(--musk-magenta-2); }
+
+/* =============================== FORM CONTROLS =============================== */
+.field {
+  display: flex; flex-direction: column; gap: 6px;
+  margin-bottom: 14px;
+}
+.field:last-child { margin-bottom: 0; }
+.field label {
+  font-size: var(--fs-tiny);
+  color: var(--ink-3);
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  font-weight: 600;
+}
+.field label .hint {
+  color: var(--ink-faint);
+  font-weight: 400;
+  text-transform: none;
+  letter-spacing: 0;
+  margin-left: 6px;
+}
+
+input[type="number"], input[type="time"], select {
+  background: white;
+  border: 1px solid var(--line-strong);
+  color: var(--ink);
+  padding: 10px 12px;
+  border-radius: var(--radius-sm);
+  font-family: "Inter", sans-serif;
+  font-size: var(--fs-body);
+  font-weight: 500;
+  transition: border-color 0.15s, box-shadow 0.15s;
+  width: 100%;
+}
+input[type="number"]:focus, input[type="time"]:focus, select:focus {
+  outline: none;
+  border-color: var(--musk-magenta);
+  box-shadow: 0 0 0 3px rgba(200,0,107,0.12);
+}
+select {
+  cursor: pointer;
+  appearance: none;
+  background-image:
+    linear-gradient(45deg, transparent 50%, var(--ink-3) 50%),
+    linear-gradient(135deg, var(--ink-3) 50%, transparent 50%);
+  background-position: right 16px top 18px, right 11px top 18px;
+  background-size: 5px 5px;
+  background-repeat: no-repeat;
+  padding-right: 32px;
+}
+
+/* segmented */
+.seg {
+  display: flex; gap: 0;
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius-sm); overflow: hidden;
+  background: white;
+}
+.seg button {
+  flex: 1;
+  padding: 9px 10px;
+  background: transparent;
+  border: none;
+  color: var(--ink-2);
+  cursor: pointer;
+  font-family: "Inter", sans-serif;
+  font-size: var(--fs-small);
+  font-weight: 600;
+  letter-spacing: 0.2px;
+  border-right: 1px solid var(--line);
+  transition: all 0.15s;
+  min-height: 40px;
+}
+.seg button:last-child { border-right: none; }
+.seg button:hover:not(.active):not(.disabled) {
+  background: var(--bg-soft);
+  color: var(--ink);
+}
+.seg button.active {
+  background: var(--musk-magenta);
+  color: white;
+}
+.seg button.disabled {
+  color: var(--ink-faint);
+  cursor: not-allowed;
+  background: var(--bg-soft);
+  text-decoration: line-through;
+}
+
+/* toggle switch */
+.toggle-row {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 11px 14px;
+  background: var(--bg-soft);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+}
+.toggle-label {
+  font-size: var(--fs-small);
+  color: var(--ink);
+  font-weight: 600;
+}
+.toggle-label .aux {
+  display: block;
+  color: var(--ink-3);
+  font-size: var(--fs-tiny);
+  font-weight: 400;
+  margin-top: 2px;
+}
+.switch {
+  position: relative;
+  width: 46px; height: 26px;
+  background: var(--line-strong);
+  border-radius: 13px;
+  cursor: pointer;
+  transition: background 0.2s;
+  flex-shrink: 0;
+}
+.switch::after {
+  content: "";
+  position: absolute;
+  top: 3px; left: 3px;
+  width: 20px; height: 20px;
+  background: white;
+  border-radius: 50%;
+  transition: transform 0.2s;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+}
+.switch.on { background: var(--musk-magenta); }
+.switch.on::after { transform: translateX(20px); }
+
+.fieldhelp {
+  font-size: var(--fs-tiny);
+  color: var(--ink-3);
+  margin-top: 4px;
+  line-height: 1.4;
+}
+
+/* =============================== CUSTOM DROPDOWN =============================== */
+.dropdown {
+  position: relative;
+  width: 100%;
+}
+.dropdown-trigger {
+  width: 100%;
+  background: white;
+  border: 1px solid var(--line-strong);
+  color: var(--ink);
+  padding: 10px 36px 10px 12px;
+  border-radius: var(--radius-sm);
+  font-family: "Inter", sans-serif;
+  font-size: var(--fs-body);
+  font-weight: 500;
+  cursor: pointer;
+  text-align: left;
+  position: relative;
+  line-height: 1.35;
+  transition: border-color 0.15s, box-shadow 0.15s;
+  min-height: 42px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.dropdown-trigger:hover { border-color: var(--ink-faint); }
+.dropdown.open .dropdown-trigger {
+  border-color: var(--musk-magenta);
+  box-shadow: 0 0 0 3px rgba(200,0,107,0.12);
+}
+.dropdown-trigger::after {
+  content: "";
+  position: absolute;
+  right: 14px; top: 50%;
+  width: 8px; height: 8px;
+  border-right: 2px solid var(--ink-3);
+  border-bottom: 2px solid var(--ink-3);
+  transform: translateY(-70%) rotate(45deg);
+  transition: transform 0.18s;
+}
+.dropdown.open .dropdown-trigger::after {
+  transform: translateY(-30%) rotate(-135deg);
+  border-color: var(--musk-magenta);
+}
+.dropdown-trigger .trig-text {
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.dropdown-trigger .trig-tag {
+  font-family: "JetBrains Mono", monospace;
+  font-size: var(--fs-tiny);
+  padding: 2px 6px;
+  border-radius: 3px;
+  background: var(--musk-magenta-soft);
+  color: var(--musk-magenta-2);
+  font-weight: 700;
+  letter-spacing: 0.3px;
+  flex-shrink: 0;
+}
+.dropdown-trigger .trig-tag.type-ii { background: var(--musk-purple-soft); color: var(--musk-purple); }
+.dropdown-trigger .trig-tag.type-i  { background: var(--info-soft); color: var(--info); }
+
+.dropdown-menu {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0; right: 0;
+  background: white;
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius-sm);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.12), 0 2px 6px rgba(0,0,0,0.06);
+  z-index: 50;
+  max-height: 320px;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
+  display: none;
+  padding: 4px 0;
+}
+.dropdown.open .dropdown-menu { display: block; }
+.dropdown-menu-header { display: none; }
+
+/* On mobile (≤720px): becomes a bottom-sheet — fixed at bottom of viewport,
+   scroll happens INSIDE the sheet, page underneath stays scrollable normally. */
+@media (max-width: 720px) {
+  .dropdown-menu {
+    position: fixed;
+    top: auto;
+    left: 0; right: 0;
+    bottom: 0;
+    max-height: 75vh;
+    border: none;
+    border-top: 1px solid var(--line-strong);
+    border-radius: 14px 14px 0 0;
+    box-shadow: 0 -8px 30px rgba(0,0,0,0.18);
+    padding: 8px 0 max(16px, env(safe-area-inset-bottom));
+    transform: translateY(100%);
+    transition: transform 0.22s cubic-bezier(0.32, 0.72, 0, 1);
+    display: block;     /* always rendered, just translated off-screen */
+    visibility: hidden;
+  }
+  .dropdown.open .dropdown-menu {
+    transform: translateY(0);
+    visibility: visible;
+  }
+  .dropdown-menu-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 16px 8px;
+    border-bottom: 1px solid var(--line);
+    margin-bottom: 4px;
+    position: sticky; top: 0;
+    background: white;
+    z-index: 1;
+  }
+  .dropdown-menu-header::before {
+    content: "";
+    position: absolute;
+    top: -2px; left: 50%;
+    transform: translateX(-50%);
+    width: 38px; height: 4px;
+    background: var(--line-strong);
+    border-radius: 2px;
+  }
+  .dropdown-menu-title {
+    font-weight: 700;
+    font-size: 1rem;
+    color: var(--ink);
+    margin-top: 4px;
+  }
+  .dropdown-menu-close {
+    background: none; border: none;
+    font-size: 1.7rem;
+    color: var(--ink-3);
+    cursor: pointer;
+    padding: 0 6px;
+    margin-top: 4px;
+    line-height: 1;
+  }
+  .dropdown-menu-close:hover { color: var(--ink); }
+  /* Larger touch targets for mobile bottom-sheet */
+  .dropdown-item {
+    padding: 12px 16px;
+    font-size: var(--fs-body);
+  }
+  .dropdown-item .item-sub { margin-top: 2px; }
+  .dropdown-trigger::after { transition: none; }
+  .dropdown.open .dropdown-trigger::after {
+    transform: translateY(-70%) rotate(45deg);  /* keep arrow stable on mobile */
+    border-color: var(--ink-3);
+  }
+}
+.dropdown-group-label {
+  padding: 8px 12px 4px;
+  font-size: var(--fs-tiny);
+  color: var(--ink-3);
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  font-weight: 700;
+  background: var(--surface-2);
+  border-top: 1px solid var(--line);
+  margin-top: 2px;
+}
+.dropdown-group-label:first-child { margin-top: 0; border-top: none; }
+.dropdown-item {
+  padding: 9px 12px;
+  cursor: pointer;
+  font-size: var(--fs-small);
+  color: var(--ink);
+  line-height: 1.3;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: background 0.1s;
+}
+.dropdown-item:hover, .dropdown-item.hover { background: var(--bg-soft); }
+.dropdown-item.selected { background: var(--musk-magenta-soft); color: var(--musk-magenta-2); font-weight: 600; }
+.dropdown-item-text {
+  flex: 1;
+  overflow: hidden;
+}
+.dropdown-item .item-tag {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.68rem;
+  padding: 2px 5px;
+  border-radius: 2px;
+  background: var(--bg-soft);
+  color: var(--ink-3);
+  font-weight: 600;
+  letter-spacing: 0.3px;
+  flex-shrink: 0;
+}
+.dropdown-item .item-tag.type-ii { background: var(--musk-purple-soft); color: var(--musk-purple); }
+.dropdown-item .item-tag.type-iv { background: var(--musk-magenta-soft); color: var(--musk-magenta-2); }
+.dropdown-item .item-tag.type-i  { background: var(--info-soft); color: var(--info); }
+.dropdown-item .item-sub {
+  display: block;
+  font-size: var(--fs-tiny);
+  color: var(--ink-3);
+  font-weight: 400;
+  margin-top: 1px;
+}
+
+/* Backdrop — desktop: invisible click-catcher · mobile: dim overlay for bottom-sheet */
+.dropdown-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 49;
+  display: none;
+  background: transparent;
+}
+.dropdown.open .dropdown-backdrop { display: block; }
+@media (max-width: 720px) {
+  .dropdown-backdrop {
+    background: rgba(20, 15, 28, 0);
+    transition: background 0.22s;
+  }
+  .dropdown.open .dropdown-backdrop { background: rgba(20, 15, 28, 0.45); }
+}
+
+/* No more body scroll lock — the bottom sheet is position:fixed so chaining
+   isn't possible regardless of body scroll state. */
+
+/* =============================== OUTPUT CARD =============================== */
+.output-card {
+  grid-column: 1 / -1;
+  border: 2px solid var(--musk-magenta);
+  position: relative;
+  overflow: hidden;
+}
+.hot-display {
+  padding: 28px 20px 22px;
+  text-align: center;
+  background: linear-gradient(180deg, var(--musk-magenta-soft) 0%, white 100%);
+}
+.hot-label {
+  font-size: var(--fs-tiny);
+  color: var(--musk-magenta-2);
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+  font-weight: 600;
+}
+.hot-value {
+  font-family: "JetBrains Mono", monospace;
+  font-size: var(--fs-display);
+  font-weight: 700;
+  letter-spacing: 1px;
+  line-height: 1;
+  color: var(--go);
+  font-variant-numeric: tabular-nums;
+}
+.hot-value.status-caution { color: var(--caution); }
+.hot-value.status-stop { color: var(--stop); }
+.hot-value.status-info { color: var(--info); }
+.hot-value .sep { opacity: 0.4; margin: 0 6px; }
+.hot-unit {
+  font-family: "JetBrains Mono", monospace;
+  font-size: var(--fs-tiny);
+  color: var(--ink-3);
+  letter-spacing: 1.2px;
+  margin-top: 8px;
+  text-transform: uppercase;
+}
+
+.hot-status-banner {
+  padding: 12px 18px;
+  text-align: center;
+  font-family: "Inter", sans-serif;
+  font-weight: 700;
+  font-size: 0.95rem;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+.hot-status-banner.stop {
+  background: var(--stop-soft);
+  color: var(--stop);
+  border-top: 1px solid #f5b8c4;
+  border-bottom: 1px solid #f5b8c4;
+}
+.hot-status-banner.caution {
+  background: var(--caution-soft);
+  color: var(--caution);
+  border-top: 1px solid #fbd591;
+  border-bottom: 1px solid #fbd591;
+}
+
+.hot-details {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 0;
+  border-top: 1px solid var(--line);
+}
+.hot-detail {
+  padding: 12px 14px;
+  border-right: 1px solid var(--line);
+}
+.hot-detail:last-child { border-right: none; }
+.hot-detail-label {
+  font-family: "Inter", sans-serif;
+  font-size: var(--fs-tiny);
+  color: var(--ink-3);
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  margin-bottom: 4px;
+  font-weight: 600;
+}
+.hot-detail-value {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--ink);
+}
+.hot-detail-value.code { color: var(--musk-magenta); }
+.etlb-reminder {
+  font-size: var(--fs-tiny);
+  color: var(--ink-3);
+  margin-top: 4px;
+  font-weight: 400;
+  font-family: "Inter", sans-serif;
+}
+
+.resolved-row {
+  padding: 11px 16px 14px;
+  border-top: 1px dashed var(--line);
+  display: flex; flex-wrap: wrap; gap: 6px;
+  align-items: center;
+}
+.resolved-row .rlabel {
+  font-size: var(--fs-tiny);
+  color: var(--ink-faint);
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  margin-right: 4px;
+  font-weight: 600;
+}
+.pill {
+  display: inline-block;
+  padding: 3px 9px;
+  font-family: "JetBrains Mono", monospace;
+  font-size: var(--fs-tiny);
+  font-weight: 600;
+  border-radius: 3px;
+  letter-spacing: 0.3px;
+}
+.pill.magenta { background: var(--musk-magenta-soft); color: var(--musk-magenta-2); }
+.pill.purple { background: var(--musk-purple-soft); color: var(--musk-purple); }
+.pill.info { background: var(--info-soft); color: var(--info); }
+#hotTag.pill { font-size: var(--fs-tiny); padding: 3px 8px; }
+
+/* =============================== NOTES PANEL (collapsible groups) =============================== */
+.notes-card {
+  grid-column: 1 / -1;
+}
+.notes-tabs {
+  display: flex;
+  border-bottom: 1px solid var(--line);
+  background: var(--surface-2);
+  overflow-x: auto;
+  scrollbar-width: thin;
+}
+.notes-tab {
+  flex: 1;
+  min-width: max-content;
+  padding: 11px 14px;
+  background: transparent;
+  border: none;
+  border-right: 1px solid var(--line);
+  cursor: pointer;
+  font-family: "Inter", sans-serif;
+  font-size: var(--fs-small);
+  font-weight: 600;
+  color: var(--ink-3);
+  letter-spacing: 0.2px;
+  transition: all 0.15s;
+  white-space: nowrap;
+  display: inline-flex; align-items: center; gap: 6px; justify-content: center;
+}
+.notes-tab:last-child { border-right: none; }
+.notes-tab:hover { background: var(--bg-soft); color: var(--ink); }
+.notes-tab.active {
+  background: white;
+  color: var(--musk-magenta);
+  box-shadow: inset 0 -2px 0 var(--musk-magenta);
+}
+.notes-tab .badge {
+  background: var(--bg-soft);
+  color: var(--ink-3);
+  border-radius: 10px;
+  padding: 1px 7px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  min-width: 22px; text-align: center;
+}
+.notes-tab.active .badge { background: var(--musk-magenta-soft); color: var(--musk-magenta); }
+.notes-tab.has-stop .badge { background: var(--stop-soft); color: var(--stop); }
+.notes-tab.active.has-stop .badge { background: var(--stop); color: white; }
+.notes-tab.has-caution .badge { background: var(--caution-soft); color: var(--caution); }
+.notes-tab.active.has-caution .badge { background: var(--caution); color: white; }
+
+.notes-pane {
+  padding: 14px 16px;
+  display: none;
+}
+.notes-pane.active { display: block; }
+
+.notes-list { display: flex; flex-direction: column; gap: 8px; }
+.note {
+  padding: 10px 12px;
+  border-radius: var(--radius-sm);
+  font-size: var(--fs-small);
+  line-height: 1.5;
+  display: flex; gap: 10px;
+  align-items: flex-start;
+  border-left: 3px solid;
+}
+.note .ico {
+  font-family: "JetBrains Mono", monospace;
+  font-weight: 700;
+  flex-shrink: 0;
+  font-size: 0.85em;
+  margin-top: 1px;
+  width: 18px; height: 18px;
+  display: inline-flex; align-items: center; justify-content: center;
+  border-radius: 50%;
+  color: white;
+}
+.note.stop {
+  background: var(--stop-soft);
+  border-color: var(--stop);
+  color: #5d1322;
+}
+.note.stop .ico { background: var(--stop); }
+.note.caution {
+  background: var(--caution-soft);
+  border-color: var(--caution);
+  color: #6b3a06;
+}
+.note.caution .ico { background: var(--caution); }
+.note.info {
+  background: var(--info-soft);
+  border-color: var(--info);
+  color: #0a3a6b;
+}
+.note.info .ico { background: var(--info); }
+.note.go {
+  background: var(--go-soft);
+  border-color: var(--go);
+  color: #054d24;
+}
+.note.go .ico { background: var(--go); }
+
+.note-empty {
+  padding: 24px 16px;
+  text-align: center;
+  color: var(--ink-faint);
+  font-size: var(--fs-small);
+}
+
+/* =============================== Reference accordion =============================== */
+.ref-block {
+  grid-column: 1 / -1;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+.ref-block summary {
+  padding: 12px 16px;
+  cursor: pointer;
+  font-family: "Inter", sans-serif;
+  font-weight: 600;
+  font-size: var(--fs-body);
+  color: var(--ink-2);
+  background: var(--surface-2);
+  list-style: none;
+  display: flex; align-items: center; gap: 10px;
+}
+.ref-block summary::-webkit-details-marker { display: none; }
+.ref-block summary:hover { color: var(--ink); }
+.ref-block summary::before {
+  content: "▸";
+  color: var(--musk-magenta);
+  transition: transform 0.2s;
+  font-size: 0.85em;
+}
+.ref-block details[open] summary::before { transform: rotate(90deg); }
+.ref-content { padding: 16px; font-size: var(--fs-small); line-height: 1.6; color: var(--ink-2); }
+.ref-content h4 {
+  font-family: "Inter", sans-serif;
+  font-weight: 700;
+  font-size: 0.85rem;
+  color: var(--musk-magenta);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin: 14px 0 6px;
+}
+.ref-content h4:first-child { margin-top: 0; }
+.ref-content p { color: var(--ink-2); margin-bottom: 8px; }
+.ref-content ul { margin-left: 18px; color: var(--ink-2); }
+.ref-content li { margin-bottom: 4px; }
+.ref-content code {
+  background: var(--bg-soft);
+  padding: 1px 6px;
+  border-radius: 3px;
+  color: var(--musk-magenta);
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.9em;
+}
+
+footer {
+  max-width: 1100px; margin: 0 auto;
+  padding: 20px 20px 32px;
+  color: var(--ink-3);
+  font-size: var(--fs-tiny);
+  border-top: 1px solid var(--line);
+  line-height: 1.7;
+  font-family: "JetBrains Mono", monospace;
+}
+footer strong { color: var(--ink); }
+
+/* Active Frost specific */
+.frost-choice {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+.frost-choice button {
+  padding: 14px;
+  background: white;
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  color: var(--ink-2);
+  text-align: left;
+  transition: all 0.15s;
+}
+.frost-choice button:hover:not(.active) {
+  background: var(--bg-soft);
+  border-color: var(--ink-faint);
+}
+.frost-choice button.active {
+  background: var(--musk-magenta-soft);
+  border-color: var(--musk-magenta);
+  color: var(--ink);
+}
+.frost-choice .f-title {
+  font-family: "Inter", sans-serif;
+  font-weight: 700;
+  font-size: 0.9rem;
+  margin-bottom: 4px;
+  color: var(--musk-magenta);
+}
+.frost-choice .f-desc {
+  font-size: var(--fs-tiny);
+  color: var(--ink-3);
+}
+
+.criterion-box {
+  margin-top: 12px;
+  padding: 10px 12px;
+  background: var(--info-soft);
+  border-left: 3px solid var(--info);
+  border-radius: var(--radius-sm);
+  font-size: var(--fs-small);
+  color: #0a3a6b;
+  line-height: 1.5;
+}
+.criterion-box strong { color: var(--info); }
+
+.kilfrost-notice {
+  margin-top: 10px;
+  padding: 10px 12px;
+  background: var(--info-soft);
+  border-left: 3px solid var(--info);
+  border-radius: var(--radius-sm);
+  font-size: var(--fs-small);
+  color: #0a3a6b;
+}
+
+/* Utility */
+.hidden { display: none !important; }
+.flex-row { display: flex; gap: 10px; }
+.flex-row > * { flex: 1; min-width: 0; }
+
+/* Row where input + seg must align pixel-perfectly */
+.flex-row-aligned > .field {
+  display: flex;
+  flex-direction: column;
+}
+.flex-row-aligned > .field > label {
+  height: 18px;                /* fixed label height — no wrapping allowed */
+  line-height: 18px;
+  margin-bottom: 6px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.flex-row-aligned > .field > label .hint {
+  white-space: nowrap;         /* keep " m" on same line as label text */
+}
+.flex-row-aligned > .field > input,
+.flex-row-aligned > .field > .seg-match {
+  height: 42px;
+  box-sizing: border-box;
+  margin-top: auto;            /* pin control to bottom of the column if label is shorter */
+}
+.seg-match button { min-height: 0; height: 100%; }
+
+/* =============================== RESPONSIVE =============================== */
+@media (max-width: 600px) {
+  :root { --fs-display: 2.3rem; }
+  .top-inner { padding: 12px 16px; }
+  main { padding: 14px; gap: 14px; }
+  .card-body { padding: 14px; }
+  .hot-display { padding: 22px 14px 18px; }
+  .hot-detail { padding: 11px; border-right: none; border-bottom: 1px solid var(--line); }
+  .hot-detail:last-child { border-bottom: none; }
+  .notes-tab { padding: 10px 12px; font-size: var(--fs-tiny); }
+  .always-warn, .disclaimer { padding: 11px 13px; font-size: var(--fs-tiny); }
+  .frost-choice { grid-template-columns: 1fr; }
+  h1.title { font-size: 1.2rem; }
+  .revtag { font-size: 0.65rem; padding: 2px 6px; }
+}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="top-inner">
+    <div class="top-row">
+      <div class="brand">Musk Air</div>
+      <h1 class="title">HOT Calculator</h1>
+      <div class="revtag">OM-C ARP · 21 APR 26</div>
+    </div>
+    <div class="tagline">A32X Ground De/Anti-Icing · Winter 2025-2026</div>
+  </div>
+</header>
+
+<main>
+
+  <!-- ALWAYS-VISIBLE warnings -->
+  <div class="always-warn">
+    <div class="ico">!</div>
+    <div>
+      <strong>Canopy &amp; windshield contamination — DO NOT depart</strong> if snow accumulated and not removed
+      from the canopy/windshield area. Confirm with ground crew that canopy area and forward fuselage around
+      pitot/static probes are clear of contamination. Snow on top of fuselage may melt and refreeze in ridges
+      around the probes → unreliable airspeed at T/O run, loss of AP/FD/A-THR/characteristic speeds/rudder
+      travel limiter, reversion to manual Alternate Law.
+      <span style="display:block; margin-top:6px; font-size:var(--fs-tiny); color:#931b30;">
+        Ref: OM-A §8.2.4.4 · FCOM PRO-SUP Adverse Weather Cold Weather
+      </span>
+    </div>
+  </div>
+
+  <div class="disclaimer">
+    <div class="ico">i</div>
+    <div>
+      <strong>Departure planning aid only</strong> — this tool replicates HOT matrices from OM-C ARP but does NOT
+      replace the manual. Final responsibility for HOT respect, anti-icing code validity and pre-takeoff check
+      remains with the Commander. Anti-icing code must be entered into the <strong>eTLB</strong> (or AFL if eTLB inop)
+      by the Commander. Ref: <strong>OM-A §8.2.4</strong>.
+    </div>
+  </div>
+
+  <div class="mode-toggle" role="tablist">
+    <button class="mode-btn active" data-mode="normal" id="modeNormal">
+      Normal operation
+      <span class="sub">Precipitation + visibility</span>
+    </button>
+    <button class="mode-btn" data-mode="frost" id="modeFrost">
+      Active Frost
+      <span class="sub">Table 1 · all fluid types</span>
+    </button>
+  </div>
+
+  <!-- =================== CONFIG CARD =================== -->
+  <section class="card" id="configCard">
+    <div class="card-head"><span class="num">01</span><h2>Aircraft &amp; Fluid</h2></div>
+    <div class="card-body">
+
+      <div class="field">
+        <label>Aircraft configuration during de/anti-icing</label>
+        <div class="toggle-row">
+          <div class="toggle-label">Flaps / Slats extended
+            <span class="aux">Applies the 0.76 reduction factor to HOT values</span>
+          </div>
+          <div class="switch" id="swFlaps" role="switch" aria-checked="false" tabindex="0"></div>
+        </div>
+      </div>
+
+      <div class="field" id="fluidField">
+        <label>Fluid name <span class="hint">cross-check brand with ground crew</span></label>
+        <div class="dropdown" id="fluidDropdown">
+          <div class="dropdown-backdrop"></div>
+          <button type="button" class="dropdown-trigger" id="fluidTrigger">
+            <span class="trig-text">—</span>
+            <span class="trig-tag">—</span>
+          </button>
+          <div class="dropdown-menu" id="fluidMenu" role="listbox">
+            <div class="dropdown-menu-header">
+              <div class="dropdown-menu-title">Select fluid</div>
+              <button type="button" class="dropdown-menu-close" data-close="fluid" aria-label="Close">×</button>
+            </div>
+          </div>
+        </div>
+        <div id="kilfrostNotice" class="kilfrost-notice hidden">
+          <strong>Kilfrost ABC 3 (Type II)</strong> is not classified for fluid-specific HOT — Musk Air policy:
+          use <strong>Generic Type II HOT</strong> instead. Switching now.
+        </div>
+        <div class="fieldhelp">
+          The fluid used for <strong>anti-icing</strong> (last step) dictates the HOT table to be used.
+          If a fluid is not listed in the OMC airport briefings appendix → use the Generic table for that type.
+        </div>
+      </div>
+
+      <!-- Active Frost Type I sub-choice -->
+      <div class="field hidden" id="frostTypeIField">
+        <label>Type I critical surface material</label>
+        <div class="frost-choice">
+          <button class="active" data-mat="aluminum">
+            <div class="f-title">Aluminum</div>
+            <div class="f-desc">Standard wing / fuselage surface</div>
+          </button>
+          <button data-mat="composite">
+            <div class="f-title">Composite</div>
+            <div class="f-desc">Composite critical surface — shorter HOT</div>
+          </button>
+        </div>
+      </div>
+
+      <!-- Active Frost Type II/III/IV fluid type -->
+      <div class="field hidden" id="frostTypeField">
+        <label>Fluid type</label>
+        <div class="seg" id="frostTypeSeg">
+          <button class="active" data-t="I">Type I</button>
+          <button data-t="II">Type II</button>
+          <button data-t="IV" data-default>Type IV</button>
+        </div>
+        <div class="criterion-box">
+          <strong>Active Frost criterion:</strong> aircraft surface temperature ≤ 0°C AND ≤ dew point.
+          Type III is not approved for Musk Air operations.
+        </div>
+      </div>
+
+      <div class="field" id="concField">
+        <label>Concentration <span class="hint">fluid/water by % volume</span></label>
+        <div class="seg" id="concSeg"></div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- =================== CONDITIONS CARD =================== -->
+  <section class="card" id="condCard">
+    <div class="card-head"><span class="num">02</span><h2>Weather &amp; Conditions</h2></div>
+    <div class="card-body">
+
+      <div class="field">
+        <label>Outside Air Temperature <span class="hint">°C</span></label>
+        <input type="number" id="oatInput" step="0.5" placeholder="e.g. -5" inputmode="decimal">
+        <div id="coldSoakWarn" class="fieldhelp hidden" style="color:var(--caution); font-weight:500;">
+          ⚠ With OAT &gt; 0°C, clear ice can still form on a cold-soaked wing (fuel cold from cruise) —
+          ice/frost on lower wing skin near fuel tank is the indicator. Up to <strong>+15°C</strong>.
+        </div>
+      </div>
+
+      <div id="precipBlock">
+        <div class="field">
+          <label>Prevailing precipitation</label>
+          <div class="dropdown" id="precipDropdown">
+            <div class="dropdown-backdrop"></div>
+            <button type="button" class="dropdown-trigger" id="precipTrigger">
+              <span class="trig-text">—</span>
+            </button>
+            <div class="dropdown-menu" id="precipMenu" role="listbox">
+              <div class="dropdown-menu-header">
+                <div class="dropdown-menu-title">Select precipitation</div>
+                <button type="button" class="dropdown-menu-close" data-close="precip" aria-label="Close">×</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div id="visBlock" class="hidden">
+          <div class="flex-row flex-row-aligned">
+            <div class="field" style="margin-bottom:0">
+              <label>Prevailing visibility <span class="hint">m</span></label>
+              <input type="number" id="visInput" value="2400" step="100" min="0" inputmode="numeric">
+            </div>
+            <div class="field" style="margin-bottom:0">
+              <label>Day / Night</label>
+              <div class="seg seg-match" id="dayNightSeg">
+                <button class="active" data-t="day">Day</button>
+                <button data-t="night">Night</button>
+              </div>
+            </div>
+          </div>
+          <div class="fieldhelp" style="margin-top:6px;">
+            Table 54 will classify the snow intensity. RVR must NOT be used for HOT visibility.
+          </div>
+        </div>
+      </div>
+
+      <div class="field">
+        <label>Application start time <span class="hint">HOT timer reference</span></label>
+        <input type="time" id="startTime">
+      </div>
+
+      <div class="field">
+        <label>Process</label>
+        <div class="seg" id="stepSeg">
+          <button class="active" data-s="1">One-step</button>
+          <button data-s="2">Two-step</button>
+        </div>
+        <div class="fieldhelp">
+          HOT begins at start of application (1-step) or start of 2nd / anti-icing step (2-step).
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- =================== OUTPUT CARD =================== -->
+  <section class="card output-card full-row">
+    <div class="card-head"><span class="num">Δ</span><h2>Hold Over Time</h2>
+      <span id="hotTag" class="pill magenta hidden"></span>
+    </div>
+
+    <div class="hot-display">
+      <div class="hot-label" id="hotLabel">Range</div>
+      <div class="hot-value" id="hotValue"><span class="sep">—</span></div>
+      <div class="hot-unit">minutes · H : MM</div>
+    </div>
+
+    <div id="hotBanner" class="hidden"></div>
+
+    <div class="hot-details" id="hotDetails">
+      <div class="hot-detail">
+        <div class="hot-detail-label">Window start</div>
+        <div class="hot-detail-value" id="winStart">—</div>
+      </div>
+      <div class="hot-detail">
+        <div class="hot-detail-label">HOT expires (min)</div>
+        <div class="hot-detail-value" id="winMin">—</div>
+      </div>
+      <div class="hot-detail">
+        <div class="hot-detail-label">HOT expires (max)</div>
+        <div class="hot-detail-value" id="winMax">—</div>
+      </div>
+      <div class="hot-detail">
+        <div class="hot-detail-label">Anti-icing code</div>
+        <div class="hot-detail-value code" id="aiCode">—</div>
+        <div class="etlb-reminder" id="etlbReminder"></div>
+      </div>
+    </div>
+
+    <div class="resolved-row" id="resolvedRow">
+      <span class="rlabel">Resolved cell</span>
+    </div>
+  </section>
+
+  <!-- =================== NOTES — collapsible tabbed panel =================== -->
+  <section class="card notes-card full-row">
+    <div class="card-head"><span class="num">03</span><h2>Notes, Cautions &amp; Procedures</h2></div>
+
+    <div class="notes-tabs" role="tablist" id="notesTabs">
+      <button class="notes-tab active" data-tab="active">
+        Active <span class="badge" id="badgeActive">0</span>
+      </button>
+      <button class="notes-tab" data-tab="commander">
+        Commander &amp; Tolerances <span class="badge">5</span>
+      </button>
+      <button class="notes-tab" data-tab="procedure">
+        Procedure &amp; Recording <span class="badge">5</span>
+      </button>
+      <button class="notes-tab" data-tab="standard">
+        Standard FAA notes <span class="badge">12</span>
+      </button>
+    </div>
+
+    <div class="notes-pane active" id="paneActive">
+      <div class="notes-list" id="notesList"></div>
+    </div>
+    <div class="notes-pane" id="paneCommander">
+      <div class="notes-list" id="paneCommanderList"></div>
+    </div>
+    <div class="notes-pane" id="paneProcedure">
+      <div class="notes-list" id="paneProcedureList"></div>
+    </div>
+    <div class="notes-pane" id="paneStandard">
+      <div class="notes-list" id="paneStandardList"></div>
+    </div>
+  </section>
+
+  <!-- =================== REFERENCE accordion =================== -->
+  <div class="ref-block full-row">
+    <details>
+      <summary>Musk Air policy &amp; global cautions</summary>
+      <div class="ref-content" id="muskPolicy"></div>
+    </details>
+  </div>
+  <div class="ref-block full-row">
+    <details>
+      <summary>Table 54 — Snowfall intensity from visibility</summary>
+      <div class="ref-content" id="table54"></div>
+    </details>
+  </div>
+  <div class="ref-block full-row">
+    <details>
+      <summary>Contaminant definitions reference (OM-A §8.2.4.3)</summary>
+      <div class="ref-content" id="contamDefs"></div>
+    </details>
+  </div>
+
+</main>
+
+<footer>
+  <strong>Sources:</strong> Musk Air OM-C ARP 21 APR 2026 · CWOM rev 3.5 (26 JAN 2026) · OM-A §8.2.4 (rev 4.11 · 01 OCT 2025).<br>
+  <strong>Dataset version:</strong> 1.1 — Critical surfaces: leading edges &amp; upper surfaces of wings, vertical/horizontal stabilizers, all control surfaces, slats and flaps.<br>
+  This calculator is a study aid. In case of conflict with the manual, the manual prevails.
+</footer>
+
+<script id="dataset" type="application/json">
+{"version":"1.1","source":{"manual":"Musk Air OM-C ARP","revision_date":"21 APR 2026","chapter":"Cold Weather Operations (pp. 1387-1432)","secondary":"Musk Air CWOM rev 3.5 (26 JAN 2026)"},"precip_labels":{"freezing_fog":"Freezing Fog, Freezing Mist, or Ice Crystals","snow_mixed_fog":"Snow mixed with Freezing Fog","snow_very_light":"Very Light Snow, Snow Grains or Snow Pellets","snow_light":"Light Snow, Snow Grains or Snow Pellets","snow_moderate":"Moderate Snow, Snow Grains or Snow Pellets","snow_combined":"Snow, Snow Grains or Snow Pellets","freezing_drizzle":"Freezing Drizzle","light_freezing_rain":"Light Freezing Rain","snow_mixed_rain":"Moderate Snow mixed with Rain","rain_on_csw":"Rain on Cold-Soaked Wing","other":"Other (heavy snow, ice pellets, heavy freezing rain, hail, small hail)"},"fluids":[{"id":"generic_type_i_aluminum","letter":"N","name":"Generic Type I HOT (Aluminum)","type":"I","glycol":null,"table_number":"Table 2","oat_bins":[{"key":"-3_above","label_c":"-3°C and above","label_f":"27°F and above"},{"key":"below_-3_-6","label_c":"below -3 to -6°C","label_f":"below 27 to 21°F"},{"key":"below_-6_-10","label_c":"below -6 to -10°C","label_f":"below 21 to 14°F"},{"key":"below_-10","label_c":"below -10°C","label_f":"below 14°F"}],"precip_columns":["freezing_fog","snow_mixed_fog","snow_very_light","snow_light","snow_moderate","freezing_drizzle","light_freezing_rain","snow_mixed_rain","rain_on_csw","other"],"concentrations":["100/0"],"lout_note":"LOUT depends on actual fluid used (Type I minimum 10°C buffer below OAT)","notes_refs":[1,2,3,4,5,6,7,8,9,10,11],"matrix":{"-3_above":{"100/0":{"freezing_fog":"0:11-0:17","snow_mixed_fog":"0:06-0:11","snow_very_light":"0:18-0:22","snow_light":"0:11-0:18","snow_moderate":"0:06-0:11","freezing_drizzle":"0:09-0:13","light_freezing_rain":"0:02-0:05","snow_mixed_rain":"0:02-0:02","rain_on_csw":"0:02-0:05","other":"RED"}},"below_-3_-6":{"100/0":{"freezing_fog":"0:08-0:13","snow_mixed_fog":"0:05-0:08","snow_very_light":"0:14-0:17","snow_light":"0:08-0:14","snow_moderate":"0:05-0:08","freezing_drizzle":"0:05-0:09","light_freezing_rain":"0:02-0:05","snow_mixed_rain":"RED","rain_on_csw":"RED","other":"RED"}},"below_-6_-10":{"100/0":{"freezing_fog":"0:06-0:10","snow_mixed_fog":"0:04-0:06","snow_very_light":"0:11-0:13","snow_light":"0:06-0:11","snow_moderate":"0:04-0:06","freezing_drizzle":"0:04-0:07","light_freezing_rain":"0:02-0:05","snow_mixed_rain":"RED","rain_on_csw":"RED","other":"RED"}},"below_-10":{"100/0":{"freezing_fog":"0:05-0:09","snow_mixed_fog":"0:02-0:04","snow_very_light":"0:07-0:08","snow_light":"0:04-0:07","snow_moderate":"0:02-0:04","freezing_drizzle":"RED","light_freezing_rain":"RED","snow_mixed_rain":"RED","rain_on_csw":"RED","other":"RED"}}}},{"id":"generic_type_ii","letter":"O","name":"Generic Type II HOT","type":"II","glycol":null,"table_number":"Table 4","oat_bins":[{"key":"-3_above","label_c":"-3°C and above","label_f":"27°F and above"},{"key":"below_-3_-8","label_c":"below -3 to -8°C","label_f":"below 27 to 18°F"},{"key":"below_-8_-14","label_c":"below -8 to -14°C","label_f":"below 18 to 7°F"},{"key":"below_-14_-18","label_c":"below -14 to -18°C","label_f":"below 7 to 0°F"},{"key":"below_-18_-25","label_c":"below -18 to -25°C","label_f":"below 0 to -13°F"},{"key":"below_-25_LOUT","label_c":"below -25°C (LOUT)","label_f":"below -13°F"}],"precip_columns":["freezing_fog","snow_mixed_fog","snow_very_light","snow_light","snow_moderate","freezing_drizzle","light_freezing_rain","snow_mixed_rain","rain_on_csw","other"],"concentrations":["100/0","75/25","50/50"],"lout_note":"LOUT depends on actual fluid used (see Table 56)","notes_refs":[1,2,3,4,5,6,7,8,9,10,11,12],"matrix":{"-3_above":{"100/0":{"freezing_fog":"0:55-1:50","snow_mixed_fog":"0:20-0:40","snow_very_light":"0:30-0:55","snow_light":"0:15-0:30","snow_moderate":"0:10-0:15","freezing_drizzle":"0:35-1:05","light_freezing_rain":"0:25-0:35","snow_mixed_rain":"0:05-0:05","rain_on_csw":"0:07-0:45","other":"RED"},"75/25":{"freezing_fog":"0:40-1:10","snow_mixed_fog":"0:15-0:25","snow_very_light":"0:15-0:30","snow_light":"0:10-0:15","snow_moderate":"0:05-0:10","freezing_drizzle":"0:25-0:40","light_freezing_rain":"0:15-0:25","snow_mixed_rain":"0:03-0:03","rain_on_csw":"0:04-0:25","other":"RED"},"50/50":{"freezing_fog":"0:15-0:30","snow_mixed_fog":"0:05-0:10","snow_very_light":"0:07-0:15","snow_light":"0:09-0:15","snow_moderate":"0:06-0:09","freezing_drizzle":"N/A","light_freezing_rain":"N/A","snow_mixed_rain":"N/A","rain_on_csw":"N/A","other":"RED"}},"below_-3_-8":{"100/0":{"freezing_fog":"0:30-0:45","snow_mixed_fog":"0:15-0:30","snow_very_light":"0:20-0:40","snow_light":"0:20-0:45","snow_moderate":"0:15-0:20","freezing_drizzle":"0:20-0:45","light_freezing_rain":"0:15-0:20","snow_mixed_rain":"RED","rain_on_csw":"RED","other":"RED"},"75/25":{"freezing_fog":"0:25-0:55","snow_mixed_fog":"0:09-0:15","snow_very_light":"0:10-0:25","snow_light":"0:15-0:30","snow_moderate":"0:09-0:20","freezing_drizzle":"N/A","light_freezing_rain":"N/A","snow_mixed_rain":"N/A","rain_on_csw":"N/A","other":"RED"}},"below_-8_-14":{"100/0":{"freezing_fog":"0:30-0:45","snow_mixed_fog":"0:10-0:25","snow_very_light":"0:15-0:30","snow_light":"0:20-0:45","snow_moderate":"0:15-0:20","freezing_drizzle":"0:20-0:45","light_freezing_rain":"0:15-0:20","snow_mixed_rain":"RED","rain_on_csw":"RED","other":"RED"},"75/25":{"freezing_fog":"0:25-0:55","snow_mixed_fog":"0:07-0:15","snow_very_light":"0:09-0:20","snow_light":"0:15-0:30","snow_moderate":"0:09-0:20","freezing_drizzle":"N/A","light_freezing_rain":"N/A","snow_mixed_rain":"N/A","rain_on_csw":"N/A","other":"RED"}},"below_-14_-18":{"100/0":{"freezing_fog":"0:15-0:20","snow_mixed_fog":"0:01-0:05","snow_very_light":"0:02-0:07","snow_light":"N/A","snow_moderate":"N/A","freezing_drizzle":"RED","light_freezing_rain":"RED","snow_mixed_rain":"RED","rain_on_csw":"RED","other":"RED"}},"below_-18_-25":{"100/0":{"freezing_fog":"0:15-0:20","snow_mixed_fog":"0:00-0:02","snow_very_light":"0:01-0:03","snow_light":"N/A","snow_moderate":"N/A","freezing_drizzle":"RED","light_freezing_rain":"RED","snow_mixed_rain":"RED","rain_on_csw":"RED","other":"RED"}},"below_-25_LOUT":{"100/0":{"freezing_fog":"0:15-0:20","snow_mixed_fog":"0:00-0:00","snow_very_light":"0:00-0:01","snow_light":"N/A","snow_moderate":"N/A","freezing_drizzle":"RED","light_freezing_rain":"RED","snow_mixed_rain":"RED","rain_on_csw":"RED","other":"RED"}}}},{"id":"generic_type_iv","letter":"P","name":"Generic Type IV HOT","type":"IV","glycol":null,"table_number":"Table 19","oat_bins":[{"key":"-3_above","label_c":"-3°C and above","label_f":"27°F and above"},{"key":"below_-3_-8","label_c":"below -3 to -8°C","label_f":"below 27 to 18°F"},{"key":"below_-8_-14","label_c":"below -8 to -14°C","label_f":"below 18 to 7°F"},{"key":"below_-14_-18","label_c":"below -14 to -18°C","label_f":"below 7 to 0°F"},{"key":"below_-18_-25","label_c":"below -18 to -25°C","label_f":"below 0 to -13°F"},{"key":"below_-25_LOUT","label_c":"below -25°C (LOUT)","label_f":"below -13°F"}],"precip_columns":["freezing_fog","snow_mixed_fog","snow_very_light","snow_light","snow_moderate","freezing_drizzle","light_freezing_rain","snow_mixed_rain","rain_on_csw","other"],"concentrations":["100/0","75/25","50/50"],"lout_note":"LOUT depends on actual fluid used (see Table 58)","notes_refs":[1,2,3,4,5,6,7,8,9,10,11,12],"matrix":{"-3_above":{"100/0":{"freezing_fog":"1:15-2:15","snow_mixed_fog":"0:20-0:40","snow_very_light":"1:50-2:15","snow_light":"0:55-1:50","snow_moderate":"0:25-0:55","freezing_drizzle":"0:35-1:10","light_freezing_rain":"0:15-0:30","snow_mixed_rain":"0:06-0:06","rain_on_csw":"0:08-1:05","other":"RED"},"75/25":{"freezing_fog":"1:25-2:40","snow_mixed_fog":"0:30-0:55","snow_very_light":"2:05-2:25","snow_light":"1:15-2:05","snow_moderate":"0:40-1:15","freezing_drizzle":"1:00-1:20","light_freezing_rain":"0:30-0:60","snow_mixed_rain":"0:07-0:07","rain_on_csw":"0:09-1:20","other":"RED"},"50/50":{"freezing_fog":"0:30-0:55","snow_mixed_fog":"0:07-0:20","snow_very_light":"1:00-1:10","snow_light":"0:25-1:00","snow_moderate":"0:10-0:25","freezing_drizzle":"0:15-0:40","light_freezing_rain":"0:09-0:20","snow_mixed_rain":"N/A","rain_on_csw":"N/A","other":"RED"}},"below_-3_-8":{"100/0":{"freezing_fog":"0:15-0:35","snow_mixed_fog":"0:20-0:35","snow_very_light":"1:35-2:00","snow_light":"0:45-1:35","snow_moderate":"0:25-0:45","freezing_drizzle":"0:25-1:00","light_freezing_rain":"0:20-0:25","snow_mixed_rain":"RED","rain_on_csw":"RED","other":"RED"},"75/25":{"freezing_fog":"0:40-1:20","snow_mixed_fog":"0:25-0:50","snow_very_light":"1:50-2:10","snow_light":"1:05-1:50","snow_moderate":"0:30-1:05","freezing_drizzle":"0:20-1:05","light_freezing_rain":"0:15-0:25","snow_mixed_rain":"N/A","rain_on_csw":"N/A","other":"RED"}},"below_-8_-14":{"100/0":{"freezing_fog":"0:15-0:35","snow_mixed_fog":"0:15-0:30","snow_very_light":"1:25-1:50","snow_light":"0:45-1:25","snow_moderate":"0:20-0:45","freezing_drizzle":"0:25-1:00","light_freezing_rain":"0:20-0:25","snow_mixed_rain":"RED","rain_on_csw":"RED","other":"RED"},"75/25":{"freezing_fog":"0:40-1:20","snow_mixed_fog":"0:20-0:45","snow_very_light":"1:45-2:00","snow_light":"0:55-1:45","snow_moderate":"0:25-0:55","freezing_drizzle":"0:20-1:05","light_freezing_rain":"0:15-0:25","snow_mixed_rain":"N/A","rain_on_csw":"N/A","other":"RED"}},"below_-14_-18":{"100/0":{"freezing_fog":"0:15-0:30","snow_mixed_fog":"0:01-0:06","snow_very_light":"0:30-0:45","snow_light":"0:09-0:30","snow_moderate":"0:02-0:09","freezing_drizzle":"RED","light_freezing_rain":"RED","snow_mixed_rain":"RED","rain_on_csw":"RED","other":"RED"}},"below_-18_-25":{"100/0":{"freezing_fog":"0:15-0:30","snow_mixed_fog":"0:00-0:02","snow_very_light":"0:10-0:20","snow_light":"0:03-0:10","snow_moderate":"0:01-0:03","freezing_drizzle":"RED","light_freezing_rain":"RED","snow_mixed_rain":"RED","rain_on_csw":"RED","other":"RED"}},"below_-25_LOUT":{"100/0":{"freezing_fog":"0:15-0:30","snow_mixed_fog":"0:00-0:01","snow_very_light":"0:07-0:10","snow_light":"0:02-0:07","snow_moderate":"0:00-0:02","freezing_drizzle":"RED","light_freezing_rain":"RED","snow_mixed_rain":"RED","rain_on_csw":"RED","other":"RED"}}}},{"id":"abax_ecowing_ad2","letter":"A","name":"ABAX ECOWING AD-2","type":"II","glycol":"PG","table_number":"Table 5","oat_bins":[{"key":"-3_above","label_c":"-3°C and above","label_f":"27°F and above"},{"key":"below_-3_-8","label_c":"below -3 to -8°C","label_f":"below 27 to 18°F"},{"key":"below_-8_-14","label_c":"below -8 to -14°C","label_f":"below 18 to 7°F"},{"key":"below_-14_-18","label_c":"below -14 to -18°C","label_f":"below 7 to 0°F"},{"key":"below_-18_-25","label_c":"below -18 to -25°C","label_f":"below 0 to -13°F"},{"key":"below_-25_LOUT","label_c":"below -25°C (LOUT)","label_f":"below -13°F"}],"precip_columns":["freezing_fog","snow_mixed_fog","snow_very_light","snow_light","snow_moderate","freezing_drizzle","light_freezing_rain","snow_mixed_rain","rain_on_csw","other"],"concentrations":["100/0","75/25","50/50"],"lout_by_conc":{"100/0":-27,"75/25":-15,"50/50":-3},"notes_refs":[1,2,3,4,5,6,7,8,9,10,11],"matrix":{"-3_above":{"100/0":{"freezing_fog":"1:20-3:00","snow_mixed_fog":"0:30-0:55","snow_very_light":"2:25-2:55","snow_light":"1:15-2:25","snow_moderate":"0:40-1:15","freezing_drizzle":"0:40-1:40","light_freezing_rain":"0:30-0:45","snow_mixed_rain":"0:07-0:07","rain_on_csw":"0:09-1:25","other":"RED"},"75/25":{"freezing_fog":"1:15-1:25","snow_mixed_fog":"0:20-0:40","snow_very_light":"1:45-2:10","snow_light":"0:55-1:45","snow_moderate":"0:25-0:55","freezing_drizzle":"0:35-1:05","light_freezing_rain":"0:20-0:30","snow_mixed_rain":"0:03-0:03","rain_on_csw":"0:04-0:50","other":"RED"},"50/50":{"freezing_fog":"0:15-0:30","snow_mixed_fog":"0:05-0:10","snow_very_light":"0:35-0:40","snow_light":"0:15-0:35","snow_moderate":"0:07-0:15","freezing_drizzle":"0:09-0:15","light_freezing_rain":"0:06-0:09","snow_mixed_rain":"N/A","rain_on_csw":"N/A","other":"RED"}},"below_-3_-8":{"100/0":{"freezing_fog":"0:45-2:30","snow_mixed_fog":"0:25-0:45","snow_very_light":"2:00-2:25","snow_light":"1:00-2:00","snow_moderate":"0:30-1:00","freezing_drizzle":"0:25-1:10","light_freezing_rain":"0:20-0:30","snow_mixed_rain":"RED","rain_on_csw":"RED","other":"RED"},"75/25":{"freezing_fog":"0:35-1:55","snow_mixed_fog":"0:20-0:35","snow_very_light":"1:40-2:10","snow_light":"0:50-1:40","snow_moderate":"0:25-0:50","freezing_drizzle":"0:15-0:55","light_freezing_rain":"0:20-0:35","snow_mixed_rain":"N/A","rain_on_csw":"N/A","other":"RED"}},"below_-8_-14":{"100/0":{"freezing_fog":"0:45-2:30","snow_mixed_fog":"0:20-0:40","snow_very_light":"1:45-2:05","snow_light":"0:55-1:45","snow_moderate":"0:30-0:55","freezing_drizzle":"0:25-1:10","light_freezing_rain":"0:20-0:30","snow_mixed_rain":"RED","rain_on_csw":"RED","other":"RED"},"75/25":{"freezing_fog":"0:35-1:55","snow_mixed_fog":"0:20-0:35","snow_very_light":"1:35-2:00","snow_light":"0:50-1:35","snow_moderate":"0:25-0:50","freezing_drizzle":"0:15-0:55","light_freezing_rain":"0:20-0:35","snow_mixed_rain":"N/A","rain_on_csw":"N/A","other":"RED"}},"below_-14_-18":{"100/0":{"freezing_fog":"0:15-0:40","snow_mixed_fog":"0:01-0:05","snow_very_light":"0:20-0:30","snow_light":"0:07-0:20","snow_moderate":"0:02-0:07","freezing_drizzle":"RED","light_freezing_rain":"RED","snow_mixed_rain":"RED","rain_on_csw":"RED","other":"RED"}},"below_-18_-25":{"100/0":{"freezing_fog":"0:15-0:40","snow_mixed_fog":"0:00-0:02","snow_very_light":"0:09-0:15","snow_light":"0:03-0:09","snow_moderate":"0:01-0:03","freezing_drizzle":"RED","light_freezing_rain":"RED","snow_mixed_rain":"RED","rain_on_csw":"RED","other":"RED"}},"below_-25_-27":{"100/0":{"freezing_fog":"0:15-0:40","snow_mixed_fog":"0:00-0:00","snow_very_light":"0:05-0:07","snow_light":"0:01-0:05","snow_moderate":"0:00-0:01","freezing_drizzle":"RED","light_freezing_rain":"RED","snow_mixed_rain":"RED","rain_on_csw":"RED","other":"RED"}}}},{"id":"abax_ecowing_ad49","letter":"B","name":"ABAX ECOWING AD-49","type":"IV","glycol":"PG","table_number":"Table 20","oat_bins":[{"key":"-3_above","label_c":"-3°C and above","label_f":"27°F and above"},{"key":"below_-3_-8","label_c":"below -3 to -8°C","label_f":"below 27 to 18°F"},{"key":"below_-8_-14","label_c":"below -8 to -14°C","label_f":"below 18 to 7°F"},{"key":"below_-14_-18","label_c":"below -14 to -18°C","label_f":"below 7 to 0°F"},{"key":"below_-18_-25","label_c":"below -18 to -25°C","label_f":"below 0 to -13°F"},{"key":"below_-25_LOUT","label_c":"below -25°C (LOUT)","label_f":"below -13°F"}],"precip_columns":["freezing_fog","snow_mixed_fog","snow_very_light","snow_light","snow_moderate","freezing_drizzle","light_freezing_rain","snow_mixed_rain","rain_on_csw","other"],"concentrations":["100/0","75/25","50/50"],"lout_by_conc":{"100/0":-25,"75/25":null,"50/50":null},"notes_refs":[1,2,3,4,5,6,7,8,9,10,11],"matrix":{"-3_above":{"100/0":{"freezing_fog":"3:20-4:00","snow_mixed_fog":"0:45-1:25","snow_very_light":"3:00-3:00","snow_light":"1:55-3:00","snow_moderate":"1:00-1:55","freezing_drizzle":"1:25-2:00","light_freezing_rain":"1:00-1:25","snow_mixed_rain":"0:08-0:08","rain_on_csw":"0:10-1:55","other":"RED"},"75/25":{"freezing_fog":"N/A","snow_mixed_fog":"N/A","snow_very_light":"N/A","snow_light":"N/A","snow_moderate":"N/A","freezing_drizzle":"N/A","light_freezing_rain":"N/A","snow_mixed_rain":"N/A","rain_on_csw":"N/A","other":"N/A"},"50/50":{"freezing_fog":"N/A","snow_mixed_fog":"N/A","snow_very_light":"N/A","snow_light":"N/A","snow_moderate":"N/A","freezing_drizzle":"N/A","light_freezing_rain":"N/A","snow_mixed_rain":"N/A","rain_on_csw":"N/A","other":"N/A"}},"below_-3_-8":{"100/0":{"freezing_fog":"0:20-1:35","snow_mixed_fog":"0:35-1:05","snow_very_light":"2:55-3:00","snow_light":"1:30-2:55","snow_moderate":"0:45-1:30","freezing_drizzle":"0:25-1:25","light_freezing_rain":"0:20-0:25","snow_mixed_rain":"RED","rain_on_csw":"RED","other":"RED"},"75/25":{"freezing_fog":"N/A","snow_mixed_fog":"N/A","snow_very_light":"N/A","snow_light":"N/A","snow_moderate":"N/A","freezing_drizzle":"N/A","light_freezing_rain":"N/A","snow_mixed_rain":"N/A","rain_on_csw":"N/A","other":"N/A"}},"below_-8_-14":{"100/0":{"freezing_fog":"0:20-1:35","snow_mixed_fog":"0:30-0:55","snow_very_light":"2:25-3:00","snow_light":"1:15-2:25","snow_moderate":"0:40-1:15","freezing_drizzle":"0:25-1:25","light_freezing_rain":"0:20-0:25","snow_mixed_rain":"RED","rain_on_csw":"RED","other":"RED"},"75/25":{"freezing_fog":"N/A","snow_mixed_fog":"N/A","snow_very_light":"N/A","snow_light":"N/A","snow_moderate":"N/A","freezing_drizzle":"N/A","light_freezing_rain":"N/A","snow_mixed_rain":"N/A","rain_on_csw":"N/A","other":"N/A"}},"below_-14_-18":{"100/0":{"freezing_fog":"0:25-0:40","snow_mixed_fog":"0:01-0:06","snow_very_light":"0:30-0:45","snow_light":"0:09-0:30","snow_moderate":"0:02-0:09","freezing_drizzle":"RED","light_freezing_rain":"RED","snow_mixed_rain":"RED","rain_on_csw":"RED","other":"RED"}},"below_-18_-25":{"100/0":{"freezing_fog":"0:25-0:40","snow_mixed_fog":"0:00-0:02","snow_very_light":"0:10-0:20","snow_light":"0:03-0:10","snow_moderate":"0:01-0:03","freezing_drizzle":"RED","light_freezing_rain":"RED","snow_mixed_rain":"RED","rain_on_csw":"RED","other":"RED"}},"below_-25_-26":{"100/0":{"freezing_fog":"0:25-0:40","snow_mixed_fog":"0:00-0:01","snow_very_light":"0:07-0:10","snow_light":"0:02-0:07","snow_moderate":"0:00-0:02","freezing_drizzle":"RED","light_freezing_rain":"RED","snow_mixed_rain":"RED","rain_on_csw":"RED","other":"RED"}}}},{"id":"asglobal_4flite_pg","letter":"C","name":"ASGLOBAL 4FLITE PG (Type IV)","type":"IV","glycol":"PG","table_number":"Table 27","oat_bins":[{"key":"-3_above","label_c":"-3°C and above","label_f":"27°F and above"},{"key":"below_-3_-8","label_c":"below -3 to -8°C","label_f":"below 27 to 18°F"},{"key":"below_-8_-14","label_c":"below -8 to -14°C","label_f":"below 18 to 7°F"},{"key":"below_-14_-18","label_c":"below -14 to -18°C","label_f":"below 7 to 0°F"},{"key":"below_-18_-25","label_c":"below -18 to -25°C","label_f":"below 0 to -13°F"},{"key":"below_-25_LOUT","label_c":"below -25°C (LOUT)","label_f":"below -13°F"}],"precip_columns":["freezing_fog","snow_mixed_fog","snow_very_light","snow_light","snow_moderate","freezing_drizzle","light_freezing_rain","snow_mixed_rain","rain_on_csw","other"],"concentrations":["100/0","75/25","50/50"],"lout_by_conc":{"100/0":-26,"75/25":null,"50/50":null},"notes_refs":[1,2,3,4,5,6,7,8,9,10,11],"matrix":{"-3_above":{"100/0":{"freezing_fog":"1:50-3:15","snow_mixed_fog":"0:40-1:10","snow_very_light":"2:50-3:00","snow_light":"1:35-2:50","snow_moderate":"0:50-1:35","freezing_drizzle":"1:10-1:35","light_freezing_rain":"0:45-1:05","snow_mixed_rain":"0:15-0:15","rain_on_csw":"0:15-1:20","other":"RED"},"75/25":{"freezing_fog":"N/A","snow_mixed_fog":"N/A","snow_very_light":"N/A","snow_light":"N/A","snow_moderate":"N/A","freezing_drizzle":"N/A","light_freezing_rain":"N/A","snow_mixed_rain":"N/A","rain_on_csw":"N/A","other":"N/A"},"50/50":{"freezing_fog":"N/A","snow_mixed_fog":"N/A","snow_very_light":"N/A","snow_light":"N/A","snow_moderate":"N/A","freezing_drizzle":"N/A","light_freezing_rain":"N/A","snow_mixed_rain":"N/A","rain_on_csw":"N/A","other":"N/A"}},"below_-3_-8":{"100/0":{"freezing_fog":"1:05-1:55","snow_mixed_fog":"0:30-0:50","snow_very_light":"2:05-2:30","snow_light":"1:10-2:05","snow_moderate":"0:35-1:10","freezing_drizzle":"0:55-1:10","light_freezing_rain":"0:35-0:55","snow_mixed_rain":"RED","rain_on_csw":"RED","other":"RED"},"75/25":{"freezing_fog":"N/A","snow_mixed_fog":"N/A","snow_very_light":"N/A","snow_light":"N/A","snow_moderate":"N/A","freezing_drizzle":"N/A","light_freezing_rain":"N/A","snow_mixed_rain":"N/A","rain_on_csw":"N/A","other":"N/A"}},"below_-8_-14":{"100/0":{"freezing_fog":"1:05-1:55","snow_mixed_fog":"0:20-0:40","snow_very_light":"1:40-2:00","snow_light":"0:55-1:40","snow_moderate":"0:30-0:55","freezing_drizzle":"0:55-1:10","light_freezing_rain":"0:35-0:55","snow_mixed_rain":"RED","rain_on_csw":"RED","other":"RED"},"75/25":{"freezing_fog":"N/A","snow_mixed_fog":"N/A","snow_very_light":"N/A","snow_light":"N/A","snow_moderate":"N/A","freezing_drizzle":"N/A","light_freezing_rain":"N/A","snow_mixed_rain":"N/A","rain_on_csw":"N/A","other":"N/A"}},"below_-14_-18":{"100/0":{"freezing_fog":"0:30-0:45","snow_mixed_fog":"0:15-0:25","snow_very_light":"1:05-1:20","snow_light":"0:35-1:05","snow_moderate":"0:15-0:35","freezing_drizzle":"RED","light_freezing_rain":"RED","snow_mixed_rain":"RED","rain_on_csw":"RED","other":"RED"}},"below_-18_-25":{"100/0":{"freezing_fog":"0:30-0:45","snow_mixed_fog":"0:07-0:15","snow_very_light":"0:35-0:45","snow_light":"0:20-0:35","snow_moderate":"0:09-0:20","freezing_drizzle":"RED","light_freezing_rain":"RED","snow_mixed_rain":"RED","rain_on_csw":"RED","other":"RED"}},"below_-25_-26":{"100/0":{"freezing_fog":"0:30-0:45","snow_mixed_fog":"0:06-0:15","snow_very_light":"0:35-0:45","snow_light":"0:20-0:35","snow_moderate":"0:08-0:20","freezing_drizzle":"RED","light_freezing_rain":"RED","snow_mixed_rain":"RED","rain_on_csw":"RED","other":"RED"}}}},{"id":"clariant_mpii_flight","letter":"D","name":"Clariant Safewing MPII Flight","type":"II","glycol":"PG","table_number":"Table 7","oat_bins":[{"key":"-3_above","label_c":"-3°C and above","label_f":"27°F and above"},{"key":"below_-3_-8","label_c":"below -3 to -8°C","label_f":"below 27 to 18°F"},{"key":"below_-8_-14","label_c":"below -8 to -14°C","label_f":"below 18 to 7°F"},{"key":"below_-14_-18","label_c":"below -14 to -18°C","label_f":"below 7 to 0°F"},{"key":"below_-18_-25","label_c":"below -18 to -25°C","label_f":"below 0 to -13°F"},{"key":"below_-25_LOUT","label_c":"below -25°C (LOUT)","label_f":"below -13°F"}],"precip_columns":["freezing_fog","snow_mixed_fog","snow_very_light","snow_light","snow_moderate","freezing_drizzle","light_freezing_rain","snow_mixed_rain","rain_on_csw","other"],"concentrations":["100/0","75/25","50/50"],"lout_by_conc":{"100/0":-26,"75/25":-14,"50/50":-3.5},"notes_refs":[1,2,3,4,5,6,7,8,9,10,11],"matrix":{"-3_above":{"100/0":{"freezing_fog":"3:30-4:00","snow_mixed_fog":"0:45-1:10","snow_very_light":"2:35-3:00","snow_light":"1:35-2:35","snow_moderate":"1:00-1:35","freezing_drizzle":"1:20-2:00","light_freezing_rain":"0:45-1:25","snow_mixed_rain":"0:08-0:08","rain_on_csw":"0:10-1:30","other":"RED"},"75/25":{"freezing_fog":"1:50-2:45","snow_mixed_fog":"0:30-1:00","snow_very_light":"2:35-3:00","snow_light":"1:20-2:35","snow_moderate":"0:40-1:20","freezing_drizzle":"1:10-1:30","light_freezing_rain":"0:30-0:55","snow_mixed_rain":"0:04-0:04","rain_on_csw":"0:06-0:50","other":"RED"},"50/50":{"freezing_fog":"0:55-1:45","snow_mixed_fog":"0:09-0:20","snow_very_light":"0:45-0:55","snow_light":"0:25-0:45","snow_moderate":"0:10-0:25","freezing_drizzle":"0:20-0:30","light_freezing_rain":"0:10-0:20","snow_mixed_rain":"N/A","rain_on_csw":"N/A","other":"RED"}},"below_-3_-8":{"100/0":{"freezing_fog":"0:55-1:45","snow_mixed_fog":"0:35-1:00","snow_very_light":"2:05-2:30","snow_light":"1:15-2:05","snow_moderate":"0:45-1:15","freezing_drizzle":"0:35-1:30","light_freezing_rain":"0:25-0:45","snow_mixed_rain":"RED","rain_on_csw":"RED","other":"RED"},"75/25":{"freezing_fog":"0:25-1:05","snow_mixed_fog":"0:20-0:40","snow_very_light":"1:45-2:10","snow_light":"0:55-1:45","snow_moderate":"0:25-0:55","freezing_drizzle":"0:25-1:10","light_freezing_rain":"0:20-0:35","snow_mixed_rain":"N/A","rain_on_csw":"N/A","other":"RED"}},"below_-8_-14":{"100/0":{"freezing_fog":"0:55-1:45","snow_mixed_fog":"0:30-0:50","snow_very_light":"1:50-2:10","snow_light":"1:05-1:50","snow_moderate":"0:40-1:05","freezing_drizzle":"0:35-1:30","light_freezing_rain":"0:25-0:45","snow_mixed_rain":"RED","rain_on_csw":"RED","other":"RED"},"75/25":{"freezing_fog":"0:25-1:05","snow_mixed_fog":"0:15-0:30","snow_very_light":"1:20-1:40","snow_light":"0:40-1:20","snow_moderate":"0:20-0:40","freezing_drizzle":"0:25-1:10","light_freezing_rain":"0:20-0:35","snow_mixed_rain":"N/A","rain_on_csw":"N/A","other":"RED"}},"below_-14_-18":{"100/0":{"freezing_fog":"0:30-0:50","snow_mixed_fog":"0:06-0:20","snow_very_light":"1:10-1:40","snow_light":"0:25-1:10","snow_moderate":"0:08-0:25","freezing_drizzle":"RED","light_freezing_rain":"RED","snow_mixed_rain":"RED","rain_on_csw":"RED","other":"RED"}},"below_-18_-25":{"100/0":{"freezing_fog":"0:30-0:50","snow_mixed_fog":"0:02-0:07","snow_very_light":"0:30-0:45","snow_light":"0:10-0:30","snow_moderate":"0:03-0:10","freezing_drizzle":"RED","light_freezing_rain":"RED","snow_mixed_rain":"RED","rain_on_csw":"RED","other":"RED"}},"below_-25_-29":{"100/0":{"freezing_fog":"0:30-0:50","snow_mixed_fog":"0:01-0:05","snow_very_light":"0:20-0:30","snow_light":"0:07-0:20","snow_moderate":"0:02-0:07","freezing_drizzle":"RED","light_freezing_rain":"RED","snow_mixed_rain":"RED","rain_on_csw":"RED","other":"RED"}}}},{"id":"clariant_mpiv_launch","letter":"E","name":"Clariant Safewing MPIV Launch","type":"IV","glycol":"PG","table_number":"Table 33","oat_bins":[{"key":"-3_above","label_c":"-3°C and above","label_f":"27°F and above"},{"key":"below_-3_-8","label_c":"below -3 to -8°C","label_f":"below 27 to 18°F"},{"key":"below_-8_-14","label_c":"below -8 to -14°C","label_f":"below 18 to 7°F"},{"key":"below_-14_-18","label_c":"below -14 to -18°C","label_f":"below 7 to 0°F"},{"key":"below_-18_-25","label_c":"below -18 to -25°C","label_f":"below 0 to -13°F"},{"key":"below_-25_LOUT","label_c":"below -25°C (LOUT)","label_f":"below -13°F"}],"precip_columns":["freezing_fog","snow_mixed_fog","snow_very_light","snow_light","snow_moderate","freezing_drizzle","light_freezing_rain","snow_mixed_rain","rain_on_csw","other"],"concentrations":["100/0","75/25","50/50"],"lout_by_conc":{"100/0":-29,"75/25":-14,"50/50":-3.5},"notes_refs":[1,2,3,4,5,6,7,8,9,10,11],"matrix":{"-3_above":{"100/0":{"freezing_fog":"4:00-4:00","snow_mixed_fog":"0:50-1:20","snow_very_light":"2:50-3:00","snow_light":"1:45-2:50","snow_moderate":"1:05-1:45","freezing_drizzle":"1:30-2:00","light_freezing_rain":"1:00-1:40","snow_mixed_rain":"0:10-0:10","rain_on_csw":"0:15-1:40","other":"RED"},"75/25":{"freezing_fog":"3:40-4:00","snow_mixed_fog":"0:45-1:20","snow_very_light":"3:00-3:00","snow_light":"1:45-3:00","snow_moderate":"1:00-1:45","freezing_drizzle":"1:40-2:00","light_freezing_rain":"0:45-1:15","snow_mixed_rain":"0:08-0:08","rain_on_csw":"0:10-1:45","other":"RED"},"50/50":{"freezing_fog":"1:25-2:45","snow_mixed_fog":"0:20-0:35","snow_very_light":"1:25-1:40","snow_light":"0:45-1:25","snow_moderate":"0:25-0:45","freezing_drizzle":"0:30-0:50","light_freezing_rain":"0:20-0:45","snow_mixed_rain":"N/A","rain_on_csw":"N/A","other":"RED"}},"below_-3_-8":{"100/0":{"freezing_fog":"1:00-1:55","snow_mixed_fog":"0:40-1:05","snow_very_light":"2:25-2:50","snow_light":"1:30-2:25","snow_moderate":"0:55-1:30","freezing_drizzle":"0:35-1:40","light_freezing_rain":"0:25-0:45","snow_mixed_rain":"RED","rain_on_csw":"RED","other":"RED"},"75/25":{"freezing_fog":"0:40-1:20","snow_mixed_fog":"0:40-1:10","snow_very_light":"2:40-3:00","snow_light":"1:30-2:40","snow_moderate":"0:50-1:30","freezing_drizzle":"0:25-1:10","light_freezing_rain":"0:15-0:25","snow_mixed_rain":"N/A","rain_on_csw":"N/A","other":"RED"}},"below_-8_-14":{"100/0":{"freezing_fog":"1:00-1:55","snow_mixed_fog":"0:35-1:00","snow_very_light":"2:10-2:30","snow_light":"1:20-2:10","snow_moderate":"0:50-1:20","freezing_drizzle":"0:35-1:40","light_freezing_rain":"0:25-0:45","snow_mixed_rain":"RED","rain_on_csw":"RED","other":"RED"},"75/25":{"freezing_fog":"0:40-1:20","snow_mixed_fog":"0:35-1:00","snow_very_light":"2:25-2:55","snow_light":"1:25-2:25","snow_moderate":"0:45-1:25","freezing_drizzle":"0:25-1:10","light_freezing_rain":"0:25-0:45","snow_mixed_rain":"N/A","rain_on_csw":"N/A","other":"RED"}},"below_-14_-18":{"100/0":{"freezing_fog":"0:30-0:50","snow_mixed_fog":"0:05-0:15","snow_very_light":"1:15-1:45","snow_light":"0:20-1:15","snow_moderate":"0:06-0:20","freezing_drizzle":"RED","light_freezing_rain":"RED","snow_mixed_rain":"RED","rain_on_csw":"RED","other":"RED"}},"below_-18_-25":{"100/0":{"freezing_fog":"0:30-0:50","snow_mixed_fog":"0:02-0:06","snow_very_light":"0:30-0:45","snow_light":"0:09-0:30","snow_moderate":"0:02-0:09","freezing_drizzle":"RED","light_freezing_rain":"RED","snow_mixed_rain":"RED","rain_on_csw":"RED","other":"RED"}},"below_-25_-28_5":{"100/0":{"freezing_fog":"0:30-0:50","snow_mixed_fog":"0:01-0:04","snow_very_light":"0:20-0:30","snow_light":"0:06-0:20","snow_moderate":"0:01-0:06","freezing_drizzle":"RED","light_freezing_rain":"RED","snow_mixed_rain":"RED","rain_on_csw":"RED","other":"RED"}}}},{"id":"clariant_mpiv_launch_plus","letter":"F","name":"Clariant Safewing MPIV Launch Plus","type":"IV","glycol":"PG","table_number":"Table 34","oat_bins":[{"key":"-3_above","label_c":"-3°C and above","label_f":"27°F and above"},{"key":"below_-3_-8","label_c":"below -3 to -8°C","label_f":"below 27 to 18°F"},{"key":"below_-8_-14","label_c":"below -8 to -14°C","label_f":"below 18 to 7°F"},{"key":"below_-14_-18","label_c":"below -14 to -18°C","label_f":"below 7 to 0°F"},{"key":"below_-18_-25","label_c":"below -18 to -25°C","label_f":"below 0 to -13°F"},{"key":"below_-25_LOUT","label_c":"below -25°C (LOUT)","label_f":"below -13°F"}],"precip_columns":["freezing_fog","snow_mixed_fog","snow_very_light","snow_light","snow_moderate","freezing_drizzle","light_freezing_rain","snow_mixed_rain","rain_on_csw","other"],"concentrations":["100/0","75/25","50/50"],"lout_by_conc":{"100/0":-29,"75/25":-14,"50/50":-3.5},"notes_refs":[1,2,3,4,5,6,7,8,9,10,11],"matrix":{"-3_above":{"100/0":{"freezing_fog":"3:55-4:00","snow_mixed_fog":"0:40-1:35","snow_very_light":"3:00-3:00","snow_light":"2:05-3:00","snow_moderate":"0:55-2:05","freezing_drizzle":"2:00-2:00","light_freezing_rain":"1:00-2:00","snow_mixed_rain":"0:15-0:15","rain_on_csw":"0:20-2:00","other":"RED"},"75/25":{"freezing_fog":"3:55-4:00","snow_mixed_fog":"0:35-1:25","snow_very_light":"3:00-3:00","snow_light":"1:55-3:00","snow_moderate":"0:50-1:55","freezing_drizzle":"2:00-2:00","light_freezing_rain":"1:20-1:25","snow_mixed_rain":"0:15-0:15","rain_on_csw":"0:20-1:50","other":"RED"},"50/50":{"freezing_fog":"1:15-1:55","snow_mixed_fog":"0:15-0:35","snow_very_light":"1:35-2:00","snow_light":"0:45-1:35","snow_moderate":"0:20-0:45","freezing_drizzle":"0:25-1:00","light_freezing_rain":"0:15-0:20","snow_mixed_rain":"N/A","rain_on_csw":"N/A","other":"RED"}},"below_-3_-8":{"100/0":{"freezing_fog":"0:55-2:15","snow_mixed_fog":"0:35-1:15","snow_very_light":"3:00-3:00","snow_light":"1:40-3:00","snow_moderate":"0:45-1:40","freezing_drizzle":"0:25-1:35","light_freezing_rain":"0:25-0:40","snow_mixed_rain":"RED","rain_on_csw":"RED","other":"RED"},"75/25":{"freezing_fog":"0:40-2:00","snow_mixed_fog":"0:30-1:05","snow_very_light":"3:00-3:00","snow_light":"1:30-3:00","snow_moderate":"0:40-1:30","freezing_drizzle":"0:20-1:05","light_freezing_rain":"0:20-0:30","snow_mixed_rain":"N/A","rain_on_csw":"N/A","other":"RED"}},"below_-8_-14":{"100/0":{"freezing_fog":"0:55-2:15","snow_mixed_fog":"0:30-1:05","snow_very_light":"3:00-3:00","snow_light":"1:25-3:00","snow_moderate":"0:40-1:25","freezing_drizzle":"0:25-1:35","light_freezing_rain":"0:25-0:40","snow_mixed_rain":"RED","rain_on_csw":"RED","other":"RED"},"75/25":{"freezing_fog":"0:40-2:00","snow_mixed_fog":"0:20-0:55","snow_very_light":"2:55-3:00","snow_light":"1:15-2:55","snow_moderate":"0:30-1:15","freezing_drizzle":"0:20-1:05","light_freezing_rain":"0:20-0:30","snow_mixed_rain":"N/A","rain_on_csw":"N/A","other":"RED"}},"below_-14_-18":{"100/0":{"freezing_fog":"0:25-0:50","snow_mixed_fog":"0:05-0:20","snow_very_light":"1:15-1:50","snow_light":"0:25-1:15","snow_moderate":"0:07-0:25","freezing_drizzle":"RED","light_freezing_rain":"RED","snow_mixed_rain":"RED","rain_on_csw":"RED","other":"RED"}},"below_-18_-25":{"100/0":{"freezing_fog":"0:25-0:50","snow_mixed_fog":"0:02-0:07","snow_very_light":"0:30-0:45","snow_light":"0:09-0:30","snow_moderate":"0:03-0:09","freezing_drizzle":"RED","light_freezing_rain":"RED","snow_mixed_rain":"RED","rain_on_csw":"RED","other":"RED"}},"below_-25_-29":{"100/0":{"freezing_fog":"0:25-0:50","snow_mixed_fog":"0:01-0:04","snow_very_light":"0:20-0:30","snow_light":"0:06-0:20","snow_moderate":"0:02-0:06","freezing_drizzle":"RED","light_freezing_rain":"RED","snow_mixed_rain":"RED","rain_on_csw":"RED","other":"RED"}}}},{"id":"cryotech_polar_guard_ii","letter":"G","name":"Cryotech Polar Guard II","type":"II","glycol":"PG","table_number":"Table 8","oat_bins":[{"key":"-3_above","label_c":"-3°C and above","label_f":"27°F and above"},{"key":"below_-3_-8","label_c":"below -3 to -8°C","label_f":"below 27 to 18°F"},{"key":"below_-8_-14","label_c":"below -8 to -14°C","label_f":"below 18 to 7°F"},{"key":"below_-14_-18","label_c":"below -14 to -18°C","label_f":"below 7 to 0°F"},{"key":"below_-18_-25","label_c":"below -18 to -25°C","label_f":"below 0 to -13°F"},{"key":"below_-25_LOUT","label_c":"below -25°C (LOUT)","label_f":"below -13°F"}],"precip_columns":["freezing_fog","snow_mixed_fog","snow_very_light","snow_light","snow_moderate","freezing_drizzle","light_freezing_rain","snow_mixed_rain","rain_on_csw","other"],"concentrations":["100/0","75/25","50/50"],"lout_by_conc":{"100/0":-30.5,"75/25":-14,"50/50":-3.5},"notes_refs":[1,2,3,4,5,6,7,8,9,10,11],"matrix":{"-3_above":{"100/0":{"freezing_fog":"2:50-4:00","snow_mixed_fog":"0:50-1:25","snow_very_light":"3:00-3:00","snow_light":"1:55-3:00","snow_moderate":"1:05-1:55","freezing_drizzle":"1:35-2:00","light_freezing_rain":"1:15-1:30","snow_mixed_rain":"0:10-0:10","rain_on_csw":"0:15-2:00","other":"RED"},"75/25":{"freezing_fog":"2:30-4:00","snow_mixed_fog":"0:30-1:05","snow_very_light":"3:00-3:00","snow_light":"1:25-3:00","snow_moderate":"0:40-1:25","freezing_drizzle":"1:40-2:00","light_freezing_rain":"0:40-1:10","snow_mixed_rain":"0:07-0:07","rain_on_csw":"0:09-1:40","other":"RED"},"50/50":{"freezing_fog":"0:50-1:25","snow_mixed_fog":"0:07-0:20","snow_very_light":"1:10-1:35","snow_light":"0:25-1:10","snow_moderate":"0:10-0:25","freezing_drizzle":"0:20-0:45","light_freezing_rain":"0:09-0:20","snow_mixed_rain":"N/A","rain_on_csw":"N/A","other":"RED"}},"below_-3_-8":{"100/0":{"freezing_fog":"0:55-2:30","snow_mixed_fog":"0:35-1:05","snow_very_light":"2:25-2:50","snow_light":"1:25-2:25","snow_moderate":"0:50-1:25","freezing_drizzle":"0:35-1:35","light_freezing_rain":"0:35-0:45","snow_mixed_rain":"RED","rain_on_csw":"RED","other":"RED"},"75/25":{"freezing_fog":"0:40-1:30","snow_mixed_fog":"0:25-0:50","snow_very_light":"2:20-3:00","snow_light":"1:05-2:20","snow_moderate":"0:30-1:05","freezing_drizzle":"0:25-1:05","light_freezing_rain":"0:35-0:45","snow_mixed_rain":"N/A","rain_on_csw":"N/A","other":"RED"}},"below_-8_-14":{"100/0":{"freezing_fog":"0:55-2:30","snow_mixed_fog":"0:30-0:50","snow_very_light":"2:00-2:20","snow_light":"1:10-2:00","snow_moderate":"0:40-1:10","freezing_drizzle":"0:35-1:35","light_freezing_rain":"0:35-0:45","snow_mixed_rain":"RED","rain_on_csw":"RED","other":"RED"},"75/25":{"freezing_fog":"0:40-1:30","snow_mixed_fog":"0:20-0:45","snow_very_light":"2:00-2:30","snow_light":"0:55-2:00","snow_moderate":"0:25-0:55","freezing_drizzle":"0:25-1:05","light_freezing_rain":"0:35-0:45","snow_mixed_rain":"N/A","rain_on_csw":"N/A","other":"RED"}},"below_-14_-18":{"100/0":{"freezing_fog":"0:25-0:50","snow_mixed_fog":"0:08-0:25","snow_very_light":"1:35-2:15","snow_light":"0:35-1:35","snow_moderate":"0:10-0:35","freezing_drizzle":"RED","light_freezing_rain":"RED","snow_mixed_rain":"RED","rain_on_csw":"RED","other":"RED"}},"below_-18_-25":{"100/0":{"freezing_fog":"0:25-0:50","snow_mixed_fog":"0:03-0:10","snow_very_light":"0:40-0:55","snow_light":"0:15-0:40","snow_moderate":"0:04-0:15","freezing_drizzle":"RED","light_freezing_rain":"RED","snow_mixed_rain":"RED","rain_on_csw":"RED","other":"RED"}},"below_-25_-30_5":{"100/0":{"freezing_fog":"0:25-0:50","snow_mixed_fog":"0:02-0:05","snow_very_light":"0:25-0:30","snow_light":"0:07-0:25","snow_moderate":"0:02-0:07","freezing_drizzle":"RED","light_freezing_rain":"RED","snow_mixed_rain":"RED","rain_on_csw":"RED","other":"RED"}}}},{"id":"cryotech_polar_guard_advance","letter":"H","name":"Cryotech Polar Guard Advance","type":"IV","glycol":"PG","table_number":"Table 35","oat_bins":[{"key":"-3_above","label_c":"-3°C and above","label_f":"27°F and above"},{"key":"below_-3_-8","label_c":"below -3 to -8°C","label_f":"below 27 to 18°F"},{"key":"below_-8_-14","label_c":"below -8 to -14°C","label_f":"below 18 to 7°F"},{"key":"below_-14_-18","label_c":"below -14 to -18°C","label_f":"below 7 to 0°F"},{"key":"below_-18_-25","label_c":"below -18 to -25°C","label_f":"below 0 to -13°F"},{"key":"below_-25_LOUT","label_c":"below -25°C (LOUT)","label_f":"below -13°F"}],"precip_columns":["freezing_fog","snow_mixed_fog","snow_very_light","snow_light","snow_moderate","freezing_drizzle","light_freezing_rain","snow_mixed_rain","rain_on_csw","other"],"concentrations":["100/0","75/25","50/50"],"lout_by_conc":{"100/0":-30.5,"75/25":-14,"50/50":-3.5},"notes_refs":[1,2,3,4,5,6,7,8,9,10,11],"matrix":{"-3_above":{"100/0":{"freezing_fog":"2:50-4:00","snow_mixed_fog":"0:50-1:25","snow_very_light":"3:00-3:00","snow_light":"1:55-3:00","snow_moderate":"1:05-1:55","freezing_drizzle":"1:35-2:00","light_freezing_rain":"1:15-1:30","snow_mixed_rain":"0:10-0:10","rain_on_csw":"0:15-2:00","other":"RED"},"75/25":{"freezing_fog":"2:30-4:00","snow_mixed_fog":"0:35-1:05","snow_very_light":"3:00-3:00","snow_light":"1:25-3:00","snow_moderate":"0:40-1:25","freezing_drizzle":"1:40-2:00","light_freezing_rain":"0:40-1:10","snow_mixed_rain":"0:07-0:07","rain_on_csw":"0:09-1:40","other":"RED"},"50/50":{"freezing_fog":"0:50-1:25","snow_mixed_fog":"0:07-0:20","snow_very_light":"1:10-1:35","snow_light":"0:25-1:10","snow_moderate":"0:10-0:25","freezing_drizzle":"0:20-0:45","light_freezing_rain":"0:09-0:20","snow_mixed_rain":"N/A","rain_on_csw":"N/A","other":"RED"}},"below_-3_-8":{"100/0":{"freezing_fog":"0:55-2:30","snow_mixed_fog":"0:35-1:05","snow_very_light":"2:25-2:50","snow_light":"1:25-2:25","snow_moderate":"0:50-1:25","freezing_drizzle":"0:35-1:35","light_freezing_rain":"0:35-0:45","snow_mixed_rain":"RED","rain_on_csw":"RED","other":"RED"},"75/25":{"freezing_fog":"0:40-1:30","snow_mixed_fog":"0:25-0:50","snow_very_light":"2:20-3:00","snow_light":"1:05-2:20","snow_moderate":"0:30-1:05","freezing_drizzle":"0:25-1:05","light_freezing_rain":"0:35-0:45","snow_mixed_rain":"N/A","rain_on_csw":"N/A","other":"RED"}},"below_-8_-14":{"100/0":{"freezing_fog":"0:55-2:30","snow_mixed_fog":"0:30-0:50","snow_very_light":"2:00-2:20","snow_light":"1:10-2:00","snow_moderate":"0:40-1:10","freezing_drizzle":"0:35-1:35","light_freezing_rain":"0:35-0:45","snow_mixed_rain":"RED","rain_on_csw":"RED","other":"RED"},"75/25":{"freezing_fog":"0:40-1:30","snow_mixed_fog":"0:20-0:45","snow_very_light":"2:00-2:30","snow_light":"0:55-2:00","snow_moderate":"0:25-0:55","freezing_drizzle":"0:25-1:05","light_freezing_rain":"0:35-0:45","snow_mixed_rain":"N/A","rain_on_csw":"N/A","other":"RED"}},"below_-14_-18":{"100/0":{"freezing_fog":"0:25-0:50","snow_mixed_fog":"0:08-0:25","snow_very_light":"1:35-2:15","snow_light":"0:35-1:35","snow_moderate":"0:10-0:35","freezing_drizzle":"RED","light_freezing_rain":"RED","snow_mixed_rain":"RED","rain_on_csw":"RED","other":"RED"}},"below_-18_-25":{"100/0":{"freezing_fog":"0:25-0:50","snow_mixed_fog":"0:03-0:10","snow_very_light":"0:40-0:55","snow_light":"0:15-0:40","snow_moderate":"0:04-0:15","freezing_drizzle":"RED","light_freezing_rain":"RED","snow_mixed_rain":"RED","rain_on_csw":"RED","other":"RED"}},"below_-25_-30_5":{"100/0":{"freezing_fog":"0:25-0:50","snow_mixed_fog":"0:02-0:05","snow_very_light":"0:25-0:30","snow_light":"0:07-0:25","snow_moderate":"0:02-0:07","freezing_drizzle":"RED","light_freezing_rain":"RED","snow_mixed_rain":"RED","rain_on_csw":"RED","other":"RED"}}}},{"id":"kilfrost_abc_k_plus","letter":"I","name":"Kilfrost ABC-K Plus (Type II)","type":"II","glycol":"PG","table_number":"Table 10","oat_bins":[{"key":"-3_above","label_c":"-3°C and above","label_f":"27°F and above"},{"key":"below_-3_-8","label_c":"below -3 to -8°C","label_f":"below 27 to 18°F"},{"key":"below_-8_-14","label_c":"below -8 to -14°C","label_f":"below 18 to 7°F"},{"key":"below_-14_-18","label_c":"below -14 to -18°C","label_f":"below 7 to 0°F"},{"key":"below_-18_-25","label_c":"below -18 to -25°C","label_f":"below 0 to -13°F"},{"key":"below_-25_LOUT","label_c":"below -25°C (LOUT)","label_f":"below -13°F"}],"precip_columns":["freezing_fog","snow_mixed_fog","snow_combined","freezing_drizzle","light_freezing_rain","snow_mixed_rain","rain_on_csw","other"],"concentrations":["100/0","75/25","50/50"],"lout_by_conc":{"100/0":-29,"75/25":-14.5,"50/50":-3.5},"notes_refs":[1,2,3,4,5,6,7,8,9,10,11],"matrix":{"-3_above":{"100/0":{"freezing_fog":"2:15-3:45","snow_mixed_fog":"0:45-1:15","snow_combined":"1:00-1:40","freezing_drizzle":"1:50-2:00","light_freezing_rain":"1:00-1:25","snow_mixed_rain":"0:15-0:15","rain_on_csw":"0:20-2:00","other":"RED"},"75/25":{"freezing_fog":"1:40-2:30","snow_mixed_fog":"0:25-0:50","snow_combined":"0:35-1:10","freezing_drizzle":"1:25-2:00","light_freezing_rain":"0:50-1:10","snow_mixed_rain":"0:10-0:10","rain_on_csw":"0:15-2:00","other":"RED"},"50/50":{"freezing_fog":"0:35-1:05","snow_mixed_fog":"0:05-0:10","snow_combined":"0:07-0:15","freezing_drizzle":"0:20-0:30","light_freezing_rain":"0:10-0:15","snow_mixed_rain":"N/A","rain_on_csw":"N/A","other":"RED"}},"below_-3_-8":{"100/0":{"freezing_fog":"0:30-1:05","snow_mixed_fog":"0:40-1:10","snow_combined":"0:55-1:30","freezing_drizzle":"0:25-1:00","light_freezing_rain":"0:15-0:35","snow_mixed_rain":"RED","rain_on_csw":"RED","other":"RED"},"75/25":{"freezing_fog":"0:25-1:25","snow_mixed_fog":"0:25-0:50","snow_combined":"0:35-1:05","freezing_drizzle":"0:20-0:55","light_freezing_rain":"0:09-0:30","snow_mixed_rain":"N/A","rain_on_csw":"N/A","other":"RED"}},"below_-8_-14":{"100/0":{"freezing_fog":"0:30-1:05","snow_mixed_fog":"0:40-1:05","snow_combined":"0:50-1:25","freezing_drizzle":"0:25-1:00","light_freezing_rain":"0:15-0:35","snow_mixed_rain":"RED","rain_on_csw":"RED","other":"RED"},"75/25":{"freezing_fog":"0:25-1:25","snow_mixed_fog":"0:25-0:50","snow_combined":"0:35-1:05","freezing_drizzle":"0:20-0:55","light_freezing_rain":"0:09-0:30","snow_mixed_rain":"N/A","rain_on_csw":"N/A","other":"RED"}},"below_-14_-18":{"100/0":{"freezing_fog":"0:30-0:55","snow_mixed_fog":"0:01-0:05","snow_combined":"0:02-0:07","freezing_drizzle":"RED","light_freezing_rain":"RED","snow_mixed_rain":"RED","rain_on_csw":"RED","other":"RED"}},"below_-18_-25":{"100/0":{"freezing_fog":"0:30-0:55","snow_mixed_fog":"0:00-0:02","snow_combined":"0:01-0:03","freezing_drizzle":"RED","light_freezing_rain":"RED","snow_mixed_rain":"RED","rain_on_csw":"RED","other":"RED"}},"below_-25_-29":{"100/0":{"freezing_fog":"0:30-0:55","snow_mixed_fog":"0:00-0:00","snow_combined":"0:00-0:01","freezing_drizzle":"RED","light_freezing_rain":"RED","snow_mixed_rain":"RED","rain_on_csw":"RED","other":"RED"}}}},{"id":"kilfrost_abc_s_plus","letter":"J","name":"Kilfrost ABC-S Plus (Type IV)","type":"IV","glycol":"PG","table_number":"Table 43","oat_bins":[{"key":"-3_above","label_c":"-3°C and above","label_f":"27°F and above"},{"key":"below_-3_-8","label_c":"below -3 to -8°C","label_f":"below 27 to 18°F"},{"key":"below_-8_-14","label_c":"below -8 to -14°C","label_f":"below 18 to 7°F"},{"key":"below_-14_-18","label_c":"below -14 to -18°C","label_f":"below 7 to 0°F"},{"key":"below_-18_-25","label_c":"below -18 to -25°C","label_f":"below 0 to -13°F"},{"key":"below_-25_LOUT","label_c":"below -25°C (LOUT)","label_f":"below -13°F"}],"precip_columns":["freezing_fog","snow_mixed_fog","snow_very_light","snow_light","snow_moderate","freezing_drizzle","light_freezing_rain","snow_mixed_rain","rain_on_csw","other"],"concentrations":["100/0","75/25","50/50"],"lout_by_conc":{"100/0":-28,"75/25":-14,"50/50":-3.5},"notes_refs":[1,2,3,4,5,6,7,8,9,10,11],"matrix":{"-3_above":{"100/0":{"freezing_fog":"2:10-4:00","snow_mixed_fog":"0:55-1:35","snow_very_light":"3:00-3:00","snow_light":"2:05-3:00","snow_moderate":"1:15-2:05","freezing_drizzle":"1:50-2:00","light_freezing_rain":"1:05-2:00","snow_mixed_rain":"0:15-0:15","rain_on_csw":"0:25-2:00","other":"RED"},"75/25":{"freezing_fog":"1:25-2:40","snow_mixed_fog":"0:30-0:55","snow_very_light":"2:05-2:25","snow_light":"1:15-2:05","snow_moderate":"0:45-1:15","freezing_drizzle":"1:00-1:20","light_freezing_rain":"0:30-0:50","snow_mixed_rain":"0:08-0:08","rain_on_csw":"0:10-1:20","other":"RED"},"50/50":{"freezing_fog":"0:30-0:55","snow_mixed_fog":"0:15-0:25","snow_very_light":"1:00-1:10","snow_light":"0:30-1:00","snow_moderate":"0:15-0:30","freezing_drizzle":"0:15-0:40","light_freezing_rain":"0:15-0:20","snow_mixed_rain":"N/A","rain_on_csw":"N/A","other":"RED"}},"below_-3_-8":{"100/0":{"freezing_fog":"0:55-3:30","snow_mixed_fog":"0:50-1:25","snow_very_light":"3:00-3:00","snow_light":"1:50-3:00","snow_moderate":"1:05-1:50","freezing_drizzle":"0:25-1:35","light_freezing_rain":"0:20-0:30","snow_mixed_rain":"RED","rain_on_csw":"RED","other":"RED"},"75/25":{"freezing_fog":"0:45-1:50","snow_mixed_fog":"0:30-0:60","snow_very_light":"2:10-3:00","snow_light":"1:05-2:10","snow_moderate":"0:30-1:05","freezing_drizzle":"0:25-1:10","light_freezing_rain":"0:15-0:25","snow_mixed_rain":"N/A","rain_on_csw":"N/A","other":"RED"}},"below_-8_-14":{"100/0":{"freezing_fog":"0:55-3:30","snow_mixed_fog":"0:45-1:15","snow_very_light":"2:55-3:00","snow_light":"1:45-2:55","snow_moderate":"1:00-1:45","freezing_drizzle":"0:25-1:35","light_freezing_rain":"0:20-0:30","snow_mixed_rain":"RED","rain_on_csw":"RED","other":"RED"},"75/25":{"freezing_fog":"0:45-1:50","snow_mixed_fog":"0:25-0:45","snow_very_light":"1:45-2:00","snow_light":"1:00-1:45","snow_moderate":"0:35-1:00","freezing_drizzle":"0:20-1:00","light_freezing_rain":"0:15-0:25","snow_mixed_rain":"N/A","rain_on_csw":"N/A","other":"RED"}},"below_-14_-18":{"100/0":{"freezing_fog":"0:40-1:00","snow_mixed_fog":"0:01-0:06","snow_very_light":"0:30-0:45","snow_light":"0:09-0:30","snow_moderate":"0:02-0:09","freezing_drizzle":"RED","light_freezing_rain":"RED","snow_mixed_rain":"RED","rain_on_csw":"RED","other":"RED"}},"below_-18_-25":{"100/0":{"freezing_fog":"0:40-1:00","snow_mixed_fog":"0:00-0:02","snow_very_light":"0:10-0:20","snow_light":"0:03-0:10","snow_moderate":"0:01-0:03","freezing_drizzle":"RED","light_freezing_rain":"RED","snow_mixed_rain":"RED","rain_on_csw":"RED","other":"RED"}},"below_-25_-28":{"100/0":{"freezing_fog":"0:40-1:00","snow_mixed_fog":"0:00-0:01","snow_very_light":"0:07-0:10","snow_light":"0:02-0:07","snow_moderate":"0:00-0:02","freezing_drizzle":"RED","light_freezing_rain":"RED","snow_mixed_rain":"RED","rain_on_csw":"RED","other":"RED"}}}},{"id":"romchim_add_protect_ii","letter":"K","name":"ROMCHIM ADD-Protect Type II","type":"II","glycol":"PG","table_number":"Table 15","oat_bins":[{"key":"-3_above","label_c":"-3°C and above","label_f":"27°F and above"},{"key":"below_-3_-8","label_c":"below -3 to -8°C","label_f":"below 27 to 18°F"},{"key":"below_-8_-14","label_c":"below -8 to -14°C","label_f":"below 18 to 7°F"},{"key":"below_-14_-18","label_c":"below -14 to -18°C","label_f":"below 7 to 0°F"},{"key":"below_-18_-25","label_c":"below -18 to -25°C","label_f":"below 0 to -13°F"},{"key":"below_-25_LOUT","label_c":"below -25°C (LOUT)","label_f":"below -13°F"}],"precip_columns":["freezing_fog","snow_mixed_fog","snow_very_light","snow_light","snow_moderate","freezing_drizzle","light_freezing_rain","snow_mixed_rain","rain_on_csw","other"],"concentrations":["100/0","75/25","50/50"],"lout_by_conc":{"100/0":-28,"75/25":-14,"50/50":-3},"notes_refs":[1,2,3,4,5,6,7,8,9,10,11],"matrix":{"-3_above":{"100/0":{"freezing_fog":"1:40-3:30","snow_mixed_fog":"0:20-0:45","snow_very_light":"1:55-2:25","snow_light":"1:00-1:55","snow_moderate":"0:30-1:00","freezing_drizzle":"0:40-1:35","light_freezing_rain":"0:25-0:45","snow_mixed_rain":"0:06-0:06","rain_on_csw":"0:09-0:50","other":"RED"},"75/25":{"freezing_fog":"0:40-1:10","snow_mixed_fog":"0:15-0:25","snow_very_light":"1:00-1:10","snow_light":"0:30-1:00","snow_moderate":"0:15-0:30","freezing_drizzle":"0:25-0:40","light_freezing_rain":"0:15-0:25","snow_mixed_rain":"0:04-0:04","rain_on_csw":"0:05-0:25","other":"RED"},"50/50":{"freezing_fog":"0:20-0:35","snow_mixed_fog":"0:07-0:15","snow_very_light":"0:30-0:35","snow_light":"0:15-0:30","snow_moderate":"0:09-0:15","freezing_drizzle":"0:10-0:30","light_freezing_rain":"0:08-0:10","snow_mixed_rain":"N/A","rain_on_csw":"N/A","other":"RED"}},"below_-3_-8":{"100/0":{"freezing_fog":"0:30-0:45","snow_mixed_fog":"0:15-0:30","snow_very_light":"1:20-1:40","snow_light":"0:40-1:20","snow_moderate":"0:20-0:40","freezing_drizzle":"0:25-0:50","light_freezing_rain":"0:20-0:30","snow_mixed_rain":"RED","rain_on_csw":"RED","other":"RED"},"75/25":{"freezing_fog":"0:25-0:50","snow_mixed_fog":"0:09-0:15","snow_very_light":"0:40-0:50","snow_light":"0:25-0:40","snow_moderate":"0:10-0:25","freezing_drizzle":"0:20-0:30","light_freezing_rain":"0:15-0:20","snow_mixed_rain":"N/A","rain_on_csw":"N/A","other":"RED"}},"below_-8_-14":{"100/0":{"freezing_fog":"0:30-0:45","snow_mixed_fog":"0:15-0:25","snow_very_light":"1:05-1:20","snow_light":"0:35-1:05","snow_moderate":"0:15-0:35","freezing_drizzle":"0:25-0:50","light_freezing_rain":"0:20-0:30","snow_mixed_rain":"RED","rain_on_csw":"RED","other":"RED"},"75/25":{"freezing_fog":"0:30-0:55","snow_mixed_fog":"0:07-0:15","snow_very_light":"0:35-0:40","snow_light":"0:20-0:35","snow_moderate":"0:09-0:20","freezing_drizzle":"0:20-0:30","light_freezing_rain":"0:15-0:20","snow_mixed_rain":"N/A","rain_on_csw":"N/A","other":"RED"}},"below_-14_-18":{"100/0":{"freezing_fog":"0:15-0:25","snow_mixed_fog":"0:01-0:05","snow_very_light":"0:20-0:30","snow_light":"0:07-0:20","snow_moderate":"0:02-0:07","freezing_drizzle":"RED","light_freezing_rain":"RED","snow_mixed_rain":"RED","rain_on_csw":"RED","other":"RED"}},"below_-18_-25":{"100/0":{"freezing_fog":"0:15-0:25","snow_mixed_fog":"0:00-0:02","snow_very_light":"0:09-0:15","snow_light":"0:03-0:09","snow_moderate":"0:01-0:03","freezing_drizzle":"RED","light_freezing_rain":"RED","snow_mixed_rain":"RED","rain_on_csw":"RED","other":"RED"}},"below_-25_-28":{"100/0":{"freezing_fog":"0:15-0:25","snow_mixed_fog":"0:00-0:00","snow_very_light":"0:05-0:07","snow_light":"0:01-0:05","snow_moderate":"0:00-0:01","freezing_drizzle":"RED","light_freezing_rain":"RED","snow_mixed_rain":"RED","rain_on_csw":"RED","other":"RED"}}}},{"id":"jsc_nordix_defrost_eco4","letter":"L","name":"JSC RCP Nordix Defrost ECO 4","type":"IV","glycol":"EG","table_number":"Table 41","oat_bins":[{"key":"-3_above","label_c":"-3°C and above","label_f":"27°F and above"},{"key":"below_-3_-8","label_c":"below -3 to -8°C","label_f":"below 27 to 18°F"},{"key":"below_-8_-14","label_c":"below -8 to -14°C","label_f":"below 18 to 7°F"},{"key":"below_-14_-18","label_c":"below -14 to -18°C","label_f":"below 7 to 0°F"},{"key":"below_-18_-25","label_c":"below -18 to -25°C","label_f":"below 0 to -13°F"},{"key":"below_-25_LOUT","label_c":"below -25°C (LOUT)","label_f":"below -13°F"}],"precip_columns":["freezing_fog","snow_mixed_fog","snow_very_light","snow_light","snow_moderate","freezing_drizzle","light_freezing_rain","snow_mixed_rain","rain_on_csw","other"],"concentrations":["100/0","75/25","50/50"],"lout_by_conc":{"100/0":-25.5,"75/25":null,"50/50":null},"notes_refs":[1,2,3,4,5,6,7,8,9,10,11],"matrix":{"-3_above":{"100/0":{"freezing_fog":"1:30-2:40","snow_mixed_fog":"0:30-0:55","snow_very_light":"2:30-3:00","snow_light":"1:15-2:30","snow_moderate":"0:35-1:15","freezing_drizzle":"1:05-1:30","light_freezing_rain":"0:40-1:05","snow_mixed_rain":"0:10-0:10","rain_on_csw":"0:15-1:10","other":"RED"},"75/25":{"freezing_fog":"N/A","snow_mixed_fog":"N/A","snow_very_light":"N/A","snow_light":"N/A","snow_moderate":"N/A","freezing_drizzle":"N/A","light_freezing_rain":"N/A","snow_mixed_rain":"N/A","rain_on_csw":"N/A","other":"N/A"},"50/50":{"freezing_fog":"N/A","snow_mixed_fog":"N/A","snow_very_light":"N/A","snow_light":"N/A","snow_moderate":"N/A","freezing_drizzle":"N/A","light_freezing_rain":"N/A","snow_mixed_rain":"N/A","rain_on_csw":"N/A","other":"N/A"}},"below_-3_-8":{"100/0":{"freezing_fog":"0:55-2:35","snow_mixed_fog":"0:25-0:50","snow_very_light":"2:15-2:45","snow_light":"1:05-2:15","snow_moderate":"0:35-1:05","freezing_drizzle":"0:50-1:20","light_freezing_rain":"0:35-0:50","snow_mixed_rain":"RED","rain_on_csw":"RED","other":"RED"},"75/25":{"freezing_fog":"N/A","snow_mixed_fog":"N/A","snow_very_light":"N/A","snow_light":"N/A","snow_moderate":"N/A","freezing_drizzle":"N/A","light_freezing_rain":"N/A","snow_mixed_rain":"N/A","rain_on_csw":"N/A","other":"N/A"}},"below_-8_-14":{"100/0":{"freezing_fog":"0:55-2:35","snow_mixed_fog":"0:25-0:45","snow_very_light":"2:05-2:35","snow_light":"1:00-2:05","snow_moderate":"0:30-1:00","freezing_drizzle":"0:50-1:20","light_freezing_rain":"0:35-0:50","snow_mixed_rain":"RED","rain_on_csw":"RED","other":"RED"},"75/25":{"freezing_fog":"N/A","snow_mixed_fog":"N/A","snow_very_light":"N/A","snow_light":"N/A","snow_moderate":"N/A","freezing_drizzle":"N/A","light_freezing_rain":"N/A","snow_mixed_rain":"N/A","rain_on_csw":"N/A","other":"N/A"}},"below_-14_-18":{"100/0":{"freezing_fog":"0:30-0:50","snow_mixed_fog":"0:01-0:06","snow_very_light":"0:30-0:45","snow_light":"0:09-0:30","snow_moderate":"0:02-0:09","freezing_drizzle":"RED","light_freezing_rain":"RED","snow_mixed_rain":"RED","rain_on_csw":"RED","other":"RED"}},"below_-18_-25":{"100/0":{"freezing_fog":"0:30-0:50","snow_mixed_fog":"0:00-0:02","snow_very_light":"0:10-0:20","snow_light":"0:03-0:10","snow_moderate":"0:01-0:03","freezing_drizzle":"RED","light_freezing_rain":"RED","snow_mixed_rain":"RED","rain_on_csw":"RED","other":"RED"}},"below_-25_-25_5":{"100/0":{"freezing_fog":"0:30-0:50","snow_mixed_fog":"0:00-0:01","snow_very_light":"0:07-0:10","snow_light":"0:02-0:07","snow_moderate":"0:00-0:02","freezing_drizzle":"RED","light_freezing_rain":"RED","snow_mixed_rain":"RED","rain_on_csw":"RED","other":"RED"}}}},{"id":"active_frost_hot","letter":"M","name":"Active Frost HOT (Type I/II/III/IV)","type":"special_active_frost","glycol":null,"table_number":"Table 1","notes_refs":[1,2,3,4,5],"notes_special":["To use these HOTs, ensure the fluid and dilution being used is listed in the List of Qualified Fluids Tested for Anti-Icing Performance and Aerodynamic Acceptance table (Table 55 – Table 58).","Type I Fluid / Water Mixture must be selected so that the freezing point of the mixture is at least 10 °C (18 °F) below outside air temperature.","Ensure that the lowest operational use temperature (LOUT) is respected.","Changes in outside air temperature (OAT) over the course of longer frost events can be significant; the appropriate holdover time to use is the one provided for the coldest OAT that has occurred in the time between the de/anti-icing fluid application and takeoff.","To use the Type III fluid frost holdover times, the fluid brand being used must be known. AllClear AeroClear MAX must be applied unheated."],"type_i_hot":{"aluminum":"0:45","composite":"0:35","note":"Value does not vary with OAT. LOUT for Type I applies."},"matrix_higher_types":{"-1_above":{"100/0":{"II":"8:00","III":"2:00","IV":"12:00"},"75/25":{"II":"5:00","III":"1:00","IV":"5:00"},"50/50":{"II":"2:00","III":"0:30","IV":"3:00"}},"below_-1_-3":{"100/0":{"II":"8:00","III":"2:00","IV":"12:00"},"75/25":{"II":"5:00","III":"1:00","IV":"5:00"},"50/50":{"II":"1:30","III":"0:30","IV":"3:00"}},"below_-3_-10":{"100/0":{"II":"8:00","III":"2:00","IV":"10:00"},"75/25":{"II":"4:00","III":"1:00","IV":"5:00"}},"below_-10_-14":{"100/0":{"II":"6:00","III":"2:00","IV":"6:00"},"75/25":{"II":"1:00","III":"1:00","IV":"1:00"}},"below_-14_-21":{"100/0":{"II":"3:00","III":"2:00","IV":"6:00"}},"below_-21_-25":{"100/0":{"II":"2:00","III":"2:00","IV":"4:00"}},"below_-25":{"100/0":{"II":"RED","III":"RED","IV":"RED"}}}}],"table_54":{"title":"Snowfall Intensities as a Function of Prevailing Visibility","source":"ARP p. 1426","headers":["day_cold","day_warm","night_cold","night_warm"],"headers_labels":{"day_cold":"Day, -1°C and below","day_warm":"Day, above -1°C","night_cold":"Night, -1°C and below","night_warm":"Night, above -1°C"},"rows":[["≤1/4 SM","≤400 m",400,["Heavy","Heavy","Heavy","Heavy"]],["1/2 SM","800 m",1000,["Moderate","Heavy","Heavy","Heavy"]],["3/4 SM","1200 m",1400,["Moderate","Moderate","Moderate","Heavy"]],["1 SM","1600 m",1800,["Light","Light","Moderate","Moderate"]],["1 1/4 SM","2000 m",2200,["Light","Light","Moderate","Moderate"]],["1 1/2 SM","2400 m",2600,["Light","Light","Moderate","Moderate"]],["1 3/4 SM","2800 m",3000,["Very Light","Light","Light","Light"]],["2 SM","3200 m",3600,["Very Light","Very Light","Light","Light"]],["2 1/2 SM","4000 m",4400,["Very Light","Very Light","Very Light","Very Light"]],["3 SM","4800 m",5200,["Very Light","Very Light","Very Light","Very Light"]],["≥3 1/2 SM","≥5600 m",null,["Very Light","Very Light","Very Light","Very Light"]]],"notes":["METAR/SPECI reported visibility or flight crew observed visibility shall be used with this visibility table to establish snowfall intensity for Type I, II, III and IV holdover time guidelines, during snow, snow grain, or snow pellet precipitation conditions. This visibility table shall also be used when snow, snow grains, or snow pellets are accompanied by blowing or drifting snow, or when snow is mixed with ice crystals, freezing fog, rain or drizzle in the METAR/SPECI.","The use of Runway Visual Range (RVR) is not permitted for determining visibility used with the holdover tables.","Some METARs contain tower visibility as well as surface visibility. Whenever surface visibility is available from an official source (e.g., in the main body of the METAR or in the Remarks (RMK) section), the preferred action is to use the surface visibility value.","If the visibility is being reduced by snow along with form(s) of obscuration such as fog, haze, smoke, etc., use of the table above may overestimate the actual snowfall intensity. However, use of the snowfall intensity being reported by the weather observer or automated surface observing system (ASOS), from the FMH-1 Table, may underestimate the actual snowfall intensity as it does not directly correlate to the snowfall intensities used when determining holdover times.  Use of the visibility table in all snow conditions with or without obscurations is recommended."]},"policy":{"ice_pellets_small_hail_prohibited":"Operation in conditions with ice pellets or small hail is not permitted in Musk Air. Even where FAA tables provide allowance times for such conditions (Tables 52/53/ADJ-52), Musk Air policy supersedes.","flaps_slats_extended_factor":0.76,"flaps_slats_extended_formula":"HOT (flaps/slats extended during de/anti-icing) = 0.76 × HOT (clean configuration)","approved_fluid_types":["I","II","IV"],"approved_standards":["TYPE I / SAE AMS 1424 standard","TYPE II / SAE AMS 1428 standard","TYPE IV / SAE AMS 1428C standard"],"hot_starts_at":"HOT starts at the beginning of the application of the fluid providing anti-icing protection. In a one-step process: from the start of application. In a two-step process: from the start of the SECOND (anti-icing) step.","type_i_freezing_point_buffer_c":10,"type_ii_iv_freezing_point_buffer_c":7,"commander_responsibility":"The Commander is responsible to ensure critical surfaces remain free of contamination before commencing the take-off roll. A pre-takeoff check is required whenever the HOT is reached or when observed factors may have reduced the HOT below the time necessary until take-off initiation."},"standard_notes":{"1":"To use the HOTs in this table, ensure the fluid and dilution being used is listed in the appropriate Type II/IV Fluids Tested table (Table 56 / Table 58). Any restrictions on the use of the fluid have to be identified and applied.","2":"Ensure that the lowest operational use temperature (LOUT) is respected. Consider use of Type I fluid when Type II/IV fluid cannot be used.","3":"Freezing mist is best confirmed by observation. It is never reported by METAR; however, it can occur when mist is present at 0°C (32°F) and below.","4":"Use freezing fog holdover times in conditions of ice crystals mixed with freezing fog or freezing mist.","5":"The Snowfall Intensities as a Function of Prevailing Visibility table (Table 54) is required to confirm the precipitation intensity is no greater than \"moderate\". No holdover times exist if the reported visibility correlates to a \"heavy\" precipitation intensity.","6":"To determine snowfall intensity, the Snowfall Intensities as a Function of Prevailing Visibility table (Table 54) is required.","7":"Use snow holdover times in conditions of very light, light, or moderate snow mixed with ice crystals.","8":"Includes light, moderate and heavy freezing drizzle. Use light freezing rain holdover times if positive identification of freezing drizzle is not possible.","9":"These holdover times apply to conditions of \"moderate\" precipitation intensity. In cases of very light or light snow mixed with light rain or drizzle, use light freezing rain holdover times. The Snowfall Intensities as a Function of Prevailing Visibility table (Table 54) is required to confirm the precipitation intensity. No holdover times exist if the reported visibility correlates to a \"heavy\" precipitation intensity.","10":"No holdover time guidelines exist for this condition for 0°C (32°F) and below.","11":"Heavy snow, ice pellets, moderate and heavy freezing rain, small hail and hail. (Musk Air: operation prohibited for ice pellets / small hail.)","12":"No holdover time guidelines exist for this condition below -10°C (14°F)."},"standard_cautions":["The responsibility for the application of these data remains with the user.","The time of protection will be shortened in heavy weather conditions, heavy precipitation rates or high moisture content.","High wind velocity, jet blast or blowing snow may reduce holdover time below the lowest time stated in the range.","The holdover time may be reduced when aircraft skin temperature is lower than outside air temperature.","Fluids used during ground de/anti-icing do not provide in-flight icing protection.","This table is for departure planning only and shall be used in conjunction with pre-takeoff check procedures.","Whenever frost or ice occurs on the lower surface of the wing in the area of the fuel tank, indicating a cold-soaked wing, the 50/50 dilution of Type II or IV shall NOT be used for the anti-icing step because fluid freezing may occur."],"om_a_notes":{"commander_tolerances":[{"kind":"info","text":"<strong>Thin hoarfrost</strong> is acceptable on the upper surface of the fuselage (thin enough to distinguish surface lines/markings beneath). NOT acceptable on critical surfaces."},{"kind":"info","text":"<strong>Lower wing tank area</strong>: a maximum layer of <strong>3 mm (1/8 in)</strong> of frost will not penalize take-off performance."},{"kind":"caution","text":"<strong>Dry snow</strong> shall NOT be left on the surfaces to blow off during the take-off run."},{"kind":"caution","text":"When in doubt about aerodynamic cleanliness of the aircraft, the Commander must perform (or have performed) an inspection or request a further de/anti-icing. May request stairs to be moved next to the wing to verify upper-wing absence of clear ice; if not possible, consider preventive de-icing."},{"kind":"info","text":"<strong>Critical surfaces:</strong> leading edges &amp; upper surfaces of wings, vertical &amp; horizontal stabilizers, all control surfaces, slats and flaps."}],"procedure_recording":[{"kind":"stop","text":"<strong>Following an unsuccessful or interrupted de/anti-icing process, take-off is PROHIBITED.</strong> Aircraft must be examined and clean of any deposit. If anti-icing failed, T/O can commence only if NO icing conditions exist on the ground."},{"kind":"stop","text":"<strong>NO double anti-icing coating.</strong> An aircraft already anti-iced cannot receive further coating directly on top of existing film — original coating dilutes at end of HOT → refreezing. Re-treatment requires removal of any residue from previous treatment, then a completely new de/anti-icing application."},{"kind":"caution","text":"<strong>Anti-icing code recording:</strong> the code must be entered into the <strong>eTLB</strong> (or AFL if eTLB inop) by the Commander. Format example: <code>TYPE II/75 13:35</code>."},{"kind":"info","text":"Operate clear of jet/propeller blast from other aircraft — high winds and blast damage the fluid film and shorten HOT below the lowest published value."},{"kind":"info","text":"Wing skin temperatures may be significantly LOWER than OAT — they are a more representative guide to de-icing requirements, fluid mixing ratio and HOT than OAT alone."}],"rules":{"in_doubt_more_restrictive":"When in doubt, select the time that is MORE restrictive (e.g. use moderate instead of light).","freezing_drizzle_not_lfr":"Use of light freezing rain HOT for freezing drizzle is NOT acceptable — they are different precipitation categories.","anti_icing_dictates_table":"The fluid used for ANTI-ICING (last step) dictates the HOT table — not the de-icing fluid.","active_frost_criterion":"Active Frost = aircraft surface temperature ≤ 0°C AND ≤ dew point.","kilfrost_abc3_uses_generic":"Kilfrost ABC 3 (Type II) is NOT classified for fluid-specific HOT in MSK ops → use Generic Type II HOT.","icing_conditions_definition":"Icing conditions on ground/T/O: OAT ≤ +10°C AND visible moisture (clouds, fog ≤ 1000 m, rain, snow, sleet, ice crystals) OR standing water/slush/ice/snow on taxiway/runway."}},"contaminant_defs":[["Active Frost","Frost is forming. Aircraft surface temperature ≤ 0°C AND ≤ dew point."],["Blade Ice","Forms on back side of fan blades when engine rotates overnight in humid atmosphere ≤ 0°C. Tactile check only. Remove with hot air before dispatch."],["Clear Ice","Crystal-clear hard layer on upper critical surfaces, almost invisible. Slow freezing of large supercooled droplets. Possible up to +15°C on cold-soaked wing. Indicator: ice/frost on lower wing skin near fuel tank."],["Cold-Soak Effect","Wings hold very cold fuel after high-altitude flight or cold refuelling. Clear icing may occur in visible moisture/high humidity even at OAT +2°C to +15°C if structure remains ≤ 0°C."],["Freezing Drizzle","Fine drops &lt; 0.5 mm, freeze upon impact."],["Freezing Fog","Suspension of minute droplets that freeze on impact, generally reducing horizontal visibility &lt; 1 km."],["Frost / Hoar Frost","Forms by sublimation when collecting surface AND dew point are both below freezing. White crystalline coating."],["Hail","Ice balls/pieces 5–50 mm."],["Ice Pellets","Transparent (grains) or translucent (small hail) ice pellets ≤ 5 mm. Bounce on hard ground."],["Icing Conditions","OAT (ground/T/O) or TAT (in flight) ≤ 10°C AND visible moisture (clouds, fog ≤ 1 km, rain, snow, sleet, ice crystals) OR standing water/slush/ice/snow on taxiway/runway."],["Light Freezing Rain","Liquid drops &gt; 0.5 mm, freeze on impact. Intensity ≤ 2.5 mm/h or ≤ 25 g/dm²/h, max 0.25 mm in 6 min."],["Moderate &amp; Heavy Freezing Rain","Liquid drops &gt; 0.5 mm, freeze on impact. Intensity &gt; 2.5 mm/h or &gt; 25 g/dm²/h."],["Rime Ice","Whitish rough deposit, instantaneous freezing of small supercooled droplets (freezing fog/drizzle/rain), windward side."],["Slush","Snow or ice reduced to a soft watery mixture."],["Snow","Precipitation of ice crystals, branched/star-shaped/mixed."],["Snow Grains","Very small white opaque flat/elongated ice particles &lt; 1 mm. Do not bounce. <strong>For HOT purposes, treat as snow.</strong>"],["Snow Pellets","White opaque round/conical ice particles 2-5 mm. Brittle, bounce on hard ground."]]}
+</script>
+
+<script>
+/* =====================================================================
+   HOT CALCULATOR v1.1 — Application logic
+   Includes OM-A §8.2.4 integration:
+   - Kilfrost ABC 3 (Type II) → Generic Type II HOT redirect
+   - Split Other into freezing-rain / ice-pellets / hail
+   - Active Frost criterion display
+   - Commander tolerances + procedure/recording notes (tabbed)
+   - eTLB reminder
+   - Cold-soaked wing warning above 0°C
+   - In-doubt → more restrictive (rule reminder)
+   - Brand cross-check + anti-icing-dictates-table reminders
+   - Contaminant definitions reference
+   ===================================================================== */
+
+'use strict';
+
+const DATA = JSON.parse(document.getElementById('dataset').textContent);
+
+/* ---------- helpers ---------- */
+function fmtHM(mins) {
+  if (mins == null || isNaN(mins)) return '—';
+  const h = Math.floor(mins / 60);
+  const m = mins % 60;
+  return `${h}:${String(m).padStart(2, '0')}`;
+}
+function parseHOT(str) {
+  if (!str || typeof str !== 'string') return null;
+  if (str === 'RED' || str === 'N/A') return { token: str };
+  if (!str.includes('-')) {
+    const [h, m] = str.split(':').map(Number);
+    return { min: h*60+m, max: h*60+m };
+  }
+  const [lo, hi] = str.split('-').map(s => s.trim());
+  const [h1, m1] = lo.split(':').map(Number);
+  const [h2, m2] = hi.split(':').map(Number);
+  return { min: h1*60+m1, max: h2*60+m2 };
+}
+function addMinutes(d, mins) { const c = new Date(d); c.setMinutes(c.getMinutes()+mins); return c; }
+function fmtClock(d) { return `${String(d.getHours()).padStart(2,'0')}:${String(d.getMinutes()).padStart(2,'0')}`; }
+function timeStrToDate(hhmm) {
+  const [h,m] = hhmm.split(':').map(Number);
+  const d = new Date(); d.setHours(h, m, 0, 0); return d;
+}
+
+function decodeNum(s) {
+  if (s.includes('_')) { const [a,b] = s.split('_'); return parseFloat(`${a}.${b}`); }
+  return parseFloat(s);
+}
+function oatBinMatches(binKey, oatC) {
+  if (binKey === '-3_above') return oatC >= -3;
+  if (binKey === '-1_above') return oatC >= -1;
+  const m = binKey.match(/^below_(-?\d+(?:_\d+)?)_(-?\d+(?:_\d+)?|LOUT)$/);
+  if (m) {
+    const lo = decodeNum(m[1]), hiRaw = m[2];
+    if (hiRaw === 'LOUT') return oatC < lo;
+    const hi = decodeNum(hiRaw);
+    return (oatC < lo) && (oatC >= hi);
+  }
+  const m2 = binKey.match(/^below_(-?\d+(?:_\d+)?)$/);
+  if (m2) return oatC < decodeNum(m2[1]);
+  return false;
+}
+function findOatBin(fluid, oatC) {
+  for (const k of Object.keys(fluid.matrix)) if (oatBinMatches(k, oatC)) return k;
+  return null;
+}
+function oatBinLabel(binKey) {
+  if (binKey === '-3_above') return '-3°C and above';
+  if (binKey === '-1_above') return '-1°C and above';
+  const m = binKey.match(/^below_(-?\d+(?:_\d+)?)_(-?\d+(?:_\d+)?|LOUT)$/);
+  if (m) {
+    const a = decodeNum(m[1]), b = m[2] === 'LOUT' ? 'LOUT' : decodeNum(m[2]);
+    return `below ${a}°C to ${b === 'LOUT' ? 'LOUT' : b + '°C'}`;
+  }
+  const m2 = binKey.match(/^below_(-?\d+(?:_\d+)?)$/);
+  if (m2) return `below ${decodeNum(m2[1])}°C`;
+  return binKey;
+}
+function classifySnowIntensity(visM, oatC, dayNight) {
+  const cold = oatC <= -1;
+  const col = dayNight === 'day' ? (cold ? 0 : 1) : (cold ? 2 : 3);
+  for (const r of DATA.table_54.rows) {
+    const upper = r[2];
+    if (upper === null || visM <= upper) return r[3][col];
+  }
+  return DATA.table_54.rows[DATA.table_54.rows.length-1][3][col];
+}
+function mapSnowKeyForIntensity(fluid, intensity) {
+  if (fluid.precip_columns.includes('snow_combined')) return 'snow_combined';
+  if (intensity === 'Very Light') return 'snow_very_light';
+  if (intensity === 'Light') return 'snow_light';
+  if (intensity === 'Moderate') return 'snow_moderate';
+  return null;
+}
+
+/* ---------- Precipitation menu — OM-A 8.2.4.8 split ---------- */
+const PRECIP_MENU = [
+  { id: 'freezing_fog',         label: 'Freezing fog / freezing mist / ice crystals' },
+  { id: 'snow_mixed_fog',       label: 'Snow mixed with freezing fog' },
+  { id: 'snow',                 label: 'Snow / snow grains / snow pellets', needsVis: true,
+                                 note: 'Snow grains: treat as snow (OM-A §8.2.4.3).' },
+  { id: 'freezing_drizzle',     label: 'Freezing drizzle' },
+  { id: 'light_freezing_rain',  label: 'Light freezing rain' },
+  { id: 'snow_mixed_rain',      label: 'Moderate snow mixed with rain' },
+  { id: 'rain_on_csw',          label: 'Rain on cold-soaked wing' },
+  /* Split of "Other" — operationally distinct categories */
+  { id: 'mhf_rain',             label: 'Moderate / heavy freezing rain', forcesRed: true,
+                                 reason: 'OM-A §8.2.4.3 — intensity > 2.5 mm/h. No HOT guidelines exist.' },
+  { id: 'heavy_snow',           label: 'Heavy snow', forcesRed: true,
+                                 reason: 'No HOT guidelines exist for heavy snow.' },
+  { id: 'ice_pellets',          label: 'Ice pellets / small hail', muskProhibited: true,
+                                 reason: 'Operation in conditions with ice pellets or small hail is NOT permitted in Musk Air.' },
+  { id: 'hail',                 label: 'Hail (5–50 mm)', forcesRed: true,
+                                 reason: 'No HOT guidelines exist for hail. Take-off shall not commence.' },
+  { id: 'active_frost',         label: 'Active frost (→ switch to Active Frost mode)', redirectMode: true },
+];
+
+/* ---------- Special pseudo-fluid — Kilfrost ABC 3 → Generic Type II ---------- */
+const KILFROST_ABC3_ID = 'kilfrost_abc_3_redirect';
+
+/* ---------- STATE ---------- */
+const state = {
+  mode: 'normal',
+  flapsExtended: false,
+  fluidId: 'generic_type_iv',
+  concentration: '100/0',
+  oatC: -5,
+  oatProvided: false,   // becomes true when user types a value
+  precipId: 'snow',
+  visM: 2400,
+  dayNight: 'day',
+  steps: 1,
+  startTime: fmtClock(new Date()),
+  frostType: 'IV',
+  frostTypeIMat: 'aluminum',
+};
+
+/* ---------- BUILDERS ---------- */
+
+/** Close all open dropdowns. */
+function closeAllDropdowns() {
+  document.querySelectorAll('.dropdown.open').forEach(d => d.classList.remove('open'));
+}
+function openDropdown(dd) {
+  closeAllDropdowns();
+  dd.classList.add('open');
+  // Scroll the menu so the selected item is visible (esp. on bottom-sheet mobile)
+  const sel = dd.querySelector('.dropdown-item.selected');
+  if (sel) {
+    const menu = dd.querySelector('.dropdown-menu');
+    // Defer to next frame so display:block has taken effect
+    requestAnimationFrame(() => {
+      const offset = sel.offsetTop - menu.clientHeight / 3;
+      menu.scrollTop = Math.max(0, offset);
+    });
+  }
+}
+
+function typeTagClass(type) {
+  if (type === 'I')  return 'type-i';
+  if (type === 'II') return 'type-ii';
+  if (type === 'IV') return 'type-iv';
+  return '';
+}
+
+/** Build the Fluid custom dropdown (no letter prefixes, type badges, grouped). */
+function buildFluidSelect() {
+  const menu = document.getElementById('fluidMenu');
+  // Preserve header, clear only the items
+  const header = menu.querySelector('.dropdown-menu-header');
+  menu.innerHTML = '';
+  if (header) menu.appendChild(header);
+
+  const inNormal = DATA.fluids.filter(f => f.type !== 'special_active_frost');
+  const groups = [
+    ['Generic (FAA reference)', inNormal.filter(f => f.id.startsWith('generic_'))],
+    ['Type II fluids',           inNormal.filter(f => f.type === 'II' && !f.id.startsWith('generic_'))],
+    ['Type IV fluids',           inNormal.filter(f => f.type === 'IV' && !f.id.startsWith('generic_'))],
+    ['Not classified for fluid-specific HOT', [
+      { id: KILFROST_ABC3_ID, name: 'Kilfrost ABC 3', type: 'II',
+        sub: 'uses Generic Type II HOT (MSK policy)' }
+    ]],
+  ];
+
+  for (const [gname, items] of groups) {
+    if (!items.length) continue;
+    const lbl = document.createElement('div');
+    lbl.className = 'dropdown-group-label';
+    lbl.textContent = gname;
+    menu.appendChild(lbl);
+
+    for (const f of items) {
+      const row = document.createElement('div');
+      row.className = 'dropdown-item';
+      row.dataset.value = f.id;
+      if (f.id === state.fluidId) row.classList.add('selected');
+
+      const gly = f.glycol ? ` · ${f.glycol}` : '';
+      const subHtml = f.sub
+        ? `<span class="item-sub">${f.sub}</span>`
+        : (gly ? `<span class="item-sub">${gly.replace(' · ','').trim()}</span>` : '');
+
+      row.innerHTML = `
+        <span class="dropdown-item-text">
+          ${f.name}
+          ${subHtml}
+        </span>
+        <span class="item-tag ${typeTagClass(f.type)}">${f.type}</span>`;
+
+      row.addEventListener('click', () => {
+        state.fluidId = f.id;
+        updateFluidTrigger();
+        closeAllDropdowns();
+        buildConcSeg();
+        calc();
+      });
+      menu.appendChild(row);
+    }
+  }
+  updateFluidTrigger();
+}
+
+function updateFluidTrigger() {
+  const menu = document.getElementById('fluidMenu');
+  // mark selected
+  menu.querySelectorAll('.dropdown-item').forEach(it =>
+    it.classList.toggle('selected', it.dataset.value === state.fluidId));
+
+  const trig = document.getElementById('fluidTrigger');
+  const inNormal = DATA.fluids.filter(f => f.type !== 'special_active_frost');
+  let fluid = inNormal.find(f => f.id === state.fluidId);
+  let displayName, type, sub = '';
+  if (state.fluidId === KILFROST_ABC3_ID) {
+    displayName = 'Kilfrost ABC 3';
+    type = 'II';
+    sub = '→ Generic II';
+  } else if (fluid) {
+    displayName = fluid.name;
+    type = fluid.type;
+  } else {
+    displayName = '—'; type = '—';
+  }
+
+  trig.querySelector('.trig-text').textContent = displayName;
+  const tag = trig.querySelector('.trig-tag');
+  tag.className = 'trig-tag ' + typeTagClass(type);
+  tag.textContent = type;
+}
+
+/** Build the Precipitation custom dropdown. */
+function buildPrecipSelect() {
+  const menu = document.getElementById('precipMenu');
+  const header = menu.querySelector('.dropdown-menu-header');
+  menu.innerHTML = '';
+  if (header) menu.appendChild(header);
+  for (const p of PRECIP_MENU) {
+    const row = document.createElement('div');
+    row.className = 'dropdown-item';
+    row.dataset.value = p.id;
+    if (p.id === state.precipId) row.classList.add('selected');
+
+    let subText = '';
+    if (p.muskProhibited) subText = '<span class="item-sub" style="color:var(--stop)">Musk Air: operation prohibited</span>';
+    else if (p.forcesRed) subText = '<span class="item-sub" style="color:var(--stop)">No HOT exists</span>';
+    else if (p.needsVis) subText = '<span class="item-sub">Uses Table 54 for intensity</span>';
+    else if (p.redirectMode) subText = '<span class="item-sub">Switch to Active Frost mode</span>';
+
+    row.innerHTML = `
+      <span class="dropdown-item-text">
+        ${p.label.replace(' (→ switch to Active Frost mode)', '')}
+        ${subText}
+      </span>`;
+    row.addEventListener('click', () => {
+      state.precipId = p.id;
+      updatePrecipTrigger();
+      closeAllDropdowns();
+      updateVisBlockVisibility();
+      calc();
+    });
+    menu.appendChild(row);
+  }
+  updatePrecipTrigger();
+}
+
+function updatePrecipTrigger() {
+  const menu = document.getElementById('precipMenu');
+  menu.querySelectorAll('.dropdown-item').forEach(it =>
+    it.classList.toggle('selected', it.dataset.value === state.precipId));
+  const entry = PRECIP_MENU.find(p => p.id === state.precipId);
+  const trig = document.getElementById('precipTrigger');
+  trig.querySelector('.trig-text').textContent = entry
+    ? entry.label.replace(' (→ switch to Active Frost mode)', '')
+    : '—';
+}
+
+function buildConcSeg() {
+  const container = document.getElementById('concSeg');
+  container.innerHTML = '';
+  let concs, unavailable = {};
+
+  if (state.mode === 'frost' && state.frostType === 'I') {
+    concs = ['100/0'];
+  } else if (state.mode === 'frost') {
+    const af = DATA.fluids.find(f => f.id === 'active_frost_hot');
+    const oatBin = findFrostOatBin(state.oatC);
+    const rowData = oatBin ? af.matrix_higher_types[oatBin] : null;
+    concs = ['100/0', '75/25', '50/50'];
+    for (const c of concs) {
+      if (!rowData || !rowData[c]) unavailable[c] = 'N/A at this OAT';
+      else if (rowData[c][state.frostType] === 'RED') unavailable[c] = 'No HOT';
+    }
+  } else {
+    const fluid = resolveActualFluid();
+    concs = fluid.concentrations;
+    const oatBin = findOatBin(fluid, state.oatC);
+    const row = oatBin ? fluid.matrix[oatBin] : null;
+    for (const c of concs) {
+      if (!row || !row[c]) unavailable[c] = 'N/A at this OAT';
+    }
+  }
+
+  for (const c of concs) {
+    const btn = document.createElement('button');
+    btn.textContent = c;
+    btn.dataset.c = c;
+    if (unavailable[c]) btn.classList.add('disabled');
+    if (c === state.concentration) btn.classList.add('active');
+    btn.addEventListener('click', () => {
+      if (btn.classList.contains('disabled')) return;
+      state.concentration = c;
+      container.querySelectorAll('button').forEach(b => b.classList.toggle('active', b === btn));
+      calc();
+    });
+    container.appendChild(btn);
+  }
+  if (unavailable[state.concentration]) {
+    const first = concs.find(c => !unavailable[c]);
+    if (first) {
+      state.concentration = first;
+      container.querySelectorAll('button').forEach(b =>
+        b.classList.toggle('active', b.dataset.c === first));
+    }
+  }
+}
+
+/** Resolve the actual fluid object — handles Kilfrost ABC 3 redirect. */
+function resolveActualFluid() {
+  if (state.fluidId === KILFROST_ABC3_ID) {
+    return DATA.fluids.find(f => f.id === 'generic_type_ii');
+  }
+  return DATA.fluids.find(f => f.id === state.fluidId);
+}
+
+function findFrostOatBin(oatC) {
+  if (oatC >= -1) return '-1_above';
+  if (oatC >= -3) return 'below_-1_-3';
+  if (oatC >= -10) return 'below_-3_-10';
+  if (oatC >= -14) return 'below_-10_-14';
+  if (oatC >= -21) return 'below_-14_-21';
+  if (oatC >= -25) return 'below_-21_-25';
+  return 'below_-25';
+}
+function frostOatBinLabel(b) {
+  return ({
+    '-1_above': '-1°C and above',
+    'below_-1_-3': 'below -1 to -3°C',
+    'below_-3_-10': 'below -3 to -10°C',
+    'below_-10_-14': 'below -10 to -14°C',
+    'below_-14_-21': 'below -14 to -21°C',
+    'below_-21_-25': 'below -21 to -25°C',
+    'below_-25': 'below -25°C',
+  })[b] || b;
+}
+
+/* ---------- CALC ---------- */
+
+function calc() {
+  // Update cold-soak warning visibility
+  document.getElementById('coldSoakWarn').classList.toggle('hidden', !state.oatProvided || state.oatC <= 0 || state.oatC > 15);
+  // Update Kilfrost notice visibility
+  document.getElementById('kilfrostNotice').classList.toggle('hidden', state.fluidId !== KILFROST_ABC3_ID);
+
+  // Block calculation until OAT has been entered
+  if (!state.oatProvided) {
+    return renderOutput({
+      status: 'info',
+      tag: 'AWAITING INPUT',
+      headline: 'Enter OAT to begin',
+      value: '—',
+      resolvedText: 'Please enter outside air temperature (°C).',
+      activeNotes: [{
+        kind: 'info',
+        text: 'Insert the outside air temperature in the OAT field to calculate the HOT. All other fields can be adjusted before or after.'
+      }],
+    });
+  }
+
+  if (state.mode === 'normal') return calcNormal();
+  if (state.mode === 'frost') return calcFrost();
+}
+
+function calcNormal() {
+  const fluid = resolveActualFluid();
+  const precipEntry = PRECIP_MENU.find(p => p.id === state.precipId);
+
+  // Special precipitation cases
+  if (precipEntry.redirectMode) {
+    return renderOutput({
+      status: 'info',
+      tag: 'ACTIVE FROST',
+      headline: 'Switch mode',
+      value: 'See above',
+      resolvedText: 'Use the Active Frost toggle at the top of the page.',
+      activeNotes: [{
+        kind: 'info',
+        text: 'Active Frost requires a different HOT methodology (Table 1). Switch to the Active Frost mode.'
+      }],
+    });
+  }
+
+  if (precipEntry.muskProhibited) {
+    return renderOutput({
+      status: 'stop',
+      tag: 'PROHIBITED',
+      headline: 'Operation NOT permitted',
+      value: 'N/A',
+      banner: { kind: 'stop', text: 'Musk Air policy: operation prohibited' },
+      resolvedText: `${precipEntry.label} — operation prohibited`,
+      activeNotes: [
+        { kind: 'stop', text: precipEntry.reason },
+        { kind: 'stop', text: DATA.policy.ice_pellets_small_hail_prohibited },
+      ],
+    });
+  }
+
+  if (precipEntry.forcesRed) {
+    return renderOutput({
+      status: 'stop',
+      tag: 'NO HOT',
+      headline: 'No HOT guidelines exist',
+      value: 'N/A',
+      banner: { kind: 'stop', text: 'Take-off NOT permitted' },
+      resolvedText: `${precipEntry.label} — ${fluid.name}`,
+      activeNotes: [
+        { kind: 'stop', text: precipEntry.reason },
+      ],
+    });
+  }
+
+  // OAT bin
+  const oatBin = findOatBin(fluid, state.oatC);
+  if (!oatBin) {
+    return renderOutput({
+      status: 'stop',
+      tag: 'LOUT',
+      headline: 'OAT below LOUT',
+      value: 'N/A',
+      banner: { kind: 'stop', text: `${fluid.name} cannot be used at this OAT` },
+      resolvedText: `${state.oatC}°C · ${fluid.name}`,
+      activeNotes: [{
+        kind: 'stop',
+        text: `Lowest Operational Use Temperature (LOUT) exceeded for ${fluid.name}. Consider a different fluid type or concentration.`
+      }],
+    });
+  }
+
+  // Precip column resolution
+  let precipKey = null, snowIntensity = null;
+  const isSnow = precipEntry.id === 'snow';
+
+  if (isSnow) {
+    snowIntensity = classifySnowIntensity(state.visM, state.oatC, state.dayNight);
+    if (snowIntensity === 'Heavy') {
+      return renderOutput({
+        status: 'stop',
+        tag: 'HEAVY SNOW',
+        headline: 'No HOT · heavy snow',
+        value: 'N/A',
+        banner: { kind: 'stop', text: 'Take-off NOT permitted' },
+        details: { snowIntensity: 'Heavy (Table 54)' },
+        resolvedText: `Snow · vis ${state.visM} m · ${state.dayNight} · OAT ${state.oatC}°C → HEAVY`,
+        activeNotes: [
+          { kind: 'stop', text: 'Table 54 classifies snowfall as HEAVY → no HOT guidelines exist.' },
+          { kind: 'info', text: 'If visibility improves, intensity may drop to moderate or lower — re-check before commencing T/O.' },
+        ],
+      });
+    }
+    precipKey = mapSnowKeyForIntensity(fluid, snowIntensity);
+  } else {
+    precipKey = precipEntry.id;
+  }
+
+  const row = fluid.matrix[oatBin];
+  const concRow = row[state.concentration];
+
+  if (!concRow) {
+    return renderOutput({
+      status: 'caution',
+      tag: 'N/A',
+      headline: 'Dilution not usable',
+      value: 'N/A',
+      details: { oatBin: oatBinLabel(oatBin) },
+      resolvedText: `${state.concentration} · ${oatBinLabel(oatBin)}`,
+      activeNotes: [{
+        kind: 'caution',
+        text: `Dilution ${state.concentration} not allowed for ${fluid.name} at this OAT. Try 100/0.`
+      }],
+    });
+  }
+
+  const cellVal = concRow[precipKey];
+  const parsed = parseHOT(cellVal);
+
+  if (!parsed || parsed.token === 'RED') {
+    return renderOutput({
+      status: 'stop',
+      tag: 'NO HOT',
+      headline: 'No HOT guidelines exist',
+      value: 'RED',
+      banner: { kind: 'stop', text: 'Take-off NOT permitted for this combination' },
+      details: { oatBin: oatBinLabel(oatBin), conc: state.concentration },
+      resolvedText: describeCell(fluid, oatBin, state.concentration, precipKey, snowIntensity),
+      activeNotes: buildActiveNotes(fluid, precipKey, precipEntry, 'stop', snowIntensity),
+    });
+  }
+  if (parsed.token === 'N/A') {
+    return renderOutput({
+      status: 'caution',
+      tag: 'N/A',
+      headline: 'Not available',
+      value: 'N/A',
+      details: { oatBin: oatBinLabel(oatBin), conc: state.concentration },
+      resolvedText: describeCell(fluid, oatBin, state.concentration, precipKey, snowIntensity),
+      activeNotes: [{ kind: 'caution', text: 'No HOT value published for this combination.' }],
+    });
+  }
+
+  // Numeric range — apply 0.76 if needed
+  let min = parsed.min, max = parsed.max;
+  let reducedByFlaps = false;
+  if (state.flapsExtended) {
+    min = Math.round(min * DATA.policy.flaps_slats_extended_factor);
+    max = Math.round(max * DATA.policy.flaps_slats_extended_factor);
+    reducedByFlaps = true;
+  }
+
+  const startD = timeStrToDate(state.startTime);
+  const aiCode = formatAntiIcingCode(fluid, state.concentration, state.startTime);
+
+  renderOutput({
+    status: 'go',
+    tag: `TYPE ${fluid.type}${reducedByFlaps ? ' · ADJ' : ''}${state.fluidId === KILFROST_ABC3_ID ? ' · GEN' : ''}`,
+    headline: 'Range',
+    value: `${fmtHM(min)}<span class="sep">—</span>${fmtHM(max)}`,
+    details: {
+      winStart: state.startTime,
+      winMin: fmtClock(addMinutes(startD, min)),
+      winMax: fmtClock(addMinutes(startD, max)),
+      aiCode,
+    },
+    resolvedText: describeCell(fluid, oatBin, state.concentration, precipKey, snowIntensity),
+    activeNotes: buildActiveNotes(fluid, precipKey, precipEntry, 'go', snowIntensity, reducedByFlaps),
+  });
+}
+
+function calcFrost() {
+  const af = DATA.fluids.find(f => f.id === 'active_frost_hot');
+  if (state.frostType === 'I') {
+    const hot = af.type_i_hot[state.frostTypeIMat];
+    const parsed = parseHOT(hot);
+    let min = parsed.min, max = parsed.max;
+    let reducedByFlaps = false;
+    if (state.flapsExtended) {
+      min = Math.round(min * DATA.policy.flaps_slats_extended_factor);
+      max = Math.round(max * DATA.policy.flaps_slats_extended_factor);
+      reducedByFlaps = true;
+    }
+    const startD = timeStrToDate(state.startTime);
+    return renderOutput({
+      status: 'go',
+      tag: `TYPE I${reducedByFlaps ? ' · ADJ' : ''}`,
+      headline: 'Active Frost',
+      value: fmtHM(max),
+      details: {
+        winStart: state.startTime,
+        winMin: fmtClock(addMinutes(startD, max)),
+        winMax: fmtClock(addMinutes(startD, max)),
+        aiCode: `Type I at ${state.startTime}`,
+      },
+      resolvedText: `Active Frost · Type I · ${state.frostTypeIMat} surface · OAT ${state.oatC}°C`,
+      activeNotes: buildFrostNotes(reducedByFlaps),
+    });
+  }
+
+  const oatBin = findFrostOatBin(state.oatC);
+  const row = af.matrix_higher_types[oatBin];
+  if (!row) {
+    return renderOutput({
+      status: 'stop', tag: 'NO DATA', headline: 'Out of table', value: 'N/A',
+      resolvedText: `Active Frost · ${state.oatC}°C`,
+      activeNotes: [{ kind: 'stop', text: 'No Active Frost HOT data for this OAT.' }],
+    });
+  }
+  const concRow = row[state.concentration];
+  if (!concRow) {
+    return renderOutput({
+      status: 'caution', tag: 'N/A', headline: 'Dilution not available', value: 'N/A',
+      details: { oatBin: frostOatBinLabel(oatBin) },
+      resolvedText: `Active Frost · ${frostOatBinLabel(oatBin)} · ${state.concentration}`,
+      activeNotes: [{
+        kind: 'caution',
+        text: `Concentration ${state.concentration} not published for Type ${state.frostType} at this OAT.`
+      }],
+    });
+  }
+  const cell = concRow[state.frostType];
+  const parsed = parseHOT(cell);
+  if (!parsed || parsed.token === 'RED') {
+    return renderOutput({
+      status: 'stop', tag: 'NO HOT', headline: 'No HOT guidelines exist', value: 'RED',
+      banner: { kind: 'stop', text: 'Take-off NOT permitted for this combination' },
+      details: { oatBin: frostOatBinLabel(oatBin) },
+      resolvedText: `Active Frost · Type ${state.frostType} · ${state.concentration} · ${frostOatBinLabel(oatBin)}`,
+      activeNotes: [{ kind: 'stop', text: 'No HOT Guidelines Exist for Active Frost below -25°C.' }],
+    });
+  }
+  let min = parsed.min, max = parsed.max;
+  let reducedByFlaps = false;
+  if (state.flapsExtended) {
+    min = Math.round(min * DATA.policy.flaps_slats_extended_factor);
+    max = Math.round(max * DATA.policy.flaps_slats_extended_factor);
+    reducedByFlaps = true;
+  }
+  const startD = timeStrToDate(state.startTime);
+  const aiCode = `Type ${state.frostType}/${state.concentration.split('/')[0]} at ${state.startTime}`;
+  renderOutput({
+    status: 'go',
+    tag: `TYPE ${state.frostType} · FROST${reducedByFlaps ? ' · ADJ' : ''}`,
+    headline: 'Active Frost HOT',
+    value: fmtHM(max),
+    details: {
+      winStart: state.startTime,
+      winMin: fmtClock(addMinutes(startD, max)),
+      winMax: fmtClock(addMinutes(startD, max)),
+      aiCode,
+    },
+    resolvedText: `Active Frost · Type ${state.frostType} · ${state.concentration} · ${frostOatBinLabel(oatBin)}`,
+    activeNotes: buildFrostNotes(reducedByFlaps),
+  });
+}
+
+/* ---------- Notes builders ---------- */
+
+function buildActiveNotes(fluid, precipKey, precipEntry, status, snowIntensity, reducedByFlaps) {
+  const notes = [];
+  const R = DATA.om_a_notes.rules;
+
+  if (state.fluidId === KILFROST_ABC3_ID) {
+    notes.push({ kind: 'info', text: 'Calculation uses <strong>Generic Type II HOT</strong> per MSK policy ' +
+      '(Kilfrost ABC 3 not classified for fluid-specific HOT).' });
+  }
+
+  if (reducedByFlaps) {
+    notes.push({
+      kind: 'caution',
+      text: `HOT reduced to ${Math.round(DATA.policy.flaps_slats_extended_factor*100)}% of clean-configuration values — flaps/slats were extended during de/anti-icing.`
+    });
+  }
+
+  if (precipEntry.id === 'snow') {
+    notes.push({
+      kind: 'info',
+      text: `Snow intensity from Table 54: vis ${state.visM} m · ${state.dayNight} · OAT ${state.oatC}°C → <strong>${snowIntensity.toUpperCase()}</strong>`,
+    });
+  }
+
+  if (precipKey === 'freezing_drizzle') {
+    notes.push({ kind: 'caution', text: R.freezing_drizzle_not_lfr });
+    notes.push({ kind: 'info', text: DATA.standard_notes['8'] });
+  }
+  if (precipKey === 'light_freezing_rain') {
+    notes.push({ kind: 'caution', text: R.freezing_drizzle_not_lfr });
+  }
+  if (precipKey === 'freezing_fog') {
+    notes.push({ kind: 'info', text: DATA.standard_notes['3'] });
+    notes.push({ kind: 'info', text: DATA.standard_notes['4'] });
+  }
+  if (precipKey === 'rain_on_csw') {
+    notes.push({
+      kind: 'caution',
+      text: 'Cold-soaked wing — frost/ice on lower wing skin near fuel tank: 50/50 dilution of Type II/IV must NOT be used for the anti-icing step (fluid freezing risk).',
+    });
+  }
+
+  // Cold-soaked above 0°C reminder when relevant
+  if (state.oatC > 0 && state.oatC <= 15) {
+    notes.push({
+      kind: 'caution',
+      text: 'Cold-soaked wing alert — at this OAT (>0°C) clear ice can still form if the structure remains ≤ 0°C from cold fuel. Visible moisture or high humidity increases the risk.'
+    });
+  }
+
+  // Always-on rule reminders
+  notes.push({ kind: 'info', text: '<strong>In doubt:</strong> ' + R.in_doubt_more_restrictive });
+
+  if (status === 'go') {
+    notes.push({
+      kind: 'info',
+      text: state.steps === 1
+        ? 'One-step process: HOT begins at start of fluid application. Be especially vigilant with Type I in active precipitation.'
+        : 'Two-step process: HOT begins at start of the 2nd (anti-icing) application — typically gains several minutes vs. 1-step.'
+    });
+    notes.push({ kind: 'info', text: R.anti_icing_dictates_table });
+    notes.push({ kind: 'caution', text: DATA.policy.commander_responsibility });
+  }
+
+  notes.push({
+    kind: 'info',
+    text: 'HOT may be shortened by heavy weather, high precipitation rates, high wind velocity, jet blast, blowing snow, or aircraft skin temperature below OAT.',
+  });
+
+  return notes;
+}
+
+function buildFrostNotes(reducedByFlaps) {
+  const af = DATA.fluids.find(f => f.id === 'active_frost_hot');
+  const R = DATA.om_a_notes.rules;
+  const notes = [];
+  notes.push({
+    kind: 'info',
+    text: '<strong>Active Frost criterion:</strong> aircraft surface temperature ≤ 0°C AND ≤ dew point.'
+  });
+  if (reducedByFlaps) {
+    notes.push({
+      kind: 'caution',
+      text: `HOT reduced to ${Math.round(DATA.policy.flaps_slats_extended_factor*100)}% — flaps/slats extended during de/anti-icing.`
+    });
+  }
+  notes.push({ kind: 'caution', text: af.notes_special[0] });
+  notes.push({ kind: 'info',   text: af.notes_special[3] });
+  notes.push({ kind: 'info',   text: af.notes_special[1] });
+  notes.push({ kind: 'info',   text: af.notes_special[2] });
+  notes.push({ kind: 'info', text: '<strong>In doubt:</strong> ' + R.in_doubt_more_restrictive });
+  notes.push({ kind: 'caution', text: DATA.policy.commander_responsibility });
+  return notes;
+}
+
+/* ---------- Render ---------- */
+
+function describeCell(fluid, oatBin, conc, precipKey, snowIntensity) {
+  const precipLabel = snowIntensity ? `${snowIntensity} snow` : (DATA.precip_labels[precipKey] || precipKey);
+  const fluidLabel = state.fluidId === KILFROST_ABC3_ID
+    ? 'Kilfrost ABC 3 (→ Generic Type II)'
+    : fluid.name;
+  return `${fluidLabel} · ${conc} · ${oatBinLabel(oatBin)} · ${precipLabel}`;
+}
+
+function formatAntiIcingCode(fluid, conc, startTime) {
+  if (fluid.type === 'I') return `Type I at ${startTime}`;
+  const dil = conc.split('/')[0];
+  return `Type ${fluid.type}/${dil} at ${startTime}`;
+}
+
+function renderOutput(res) {
+  const val = document.getElementById('hotValue');
+  val.className = 'hot-value' + (res.status === 'go' ? '' : ` status-${res.status}`);
+  val.innerHTML = res.value;
+
+  document.getElementById('hotLabel').textContent = res.headline || 'Range';
+
+  const tag = document.getElementById('hotTag');
+  if (res.tag) {
+    tag.classList.remove('hidden');
+    tag.textContent = res.tag;
+  } else {
+    tag.classList.add('hidden');
+  }
+
+  const banner = document.getElementById('hotBanner');
+  if (res.banner) {
+    banner.className = 'hot-status-banner ' + res.banner.kind;
+    banner.textContent = res.banner.text;
+    banner.classList.remove('hidden');
+  } else {
+    banner.className = 'hidden';
+    banner.textContent = '';
+  }
+
+  const d = res.details || {};
+  document.getElementById('winStart').textContent = d.winStart || state.startTime || '—';
+  document.getElementById('winMin').textContent = d.winMin || '—';
+  document.getElementById('winMax').textContent = d.winMax || '—';
+  const aic = document.getElementById('aiCode');
+  aic.textContent = d.aiCode || '—';
+  aic.classList.toggle('code', !!d.aiCode);
+
+  const etlb = document.getElementById('etlbReminder');
+  etlb.textContent = d.aiCode ? '→ enter into eTLB (or AFL)' : '';
+
+  const rr = document.getElementById('resolvedRow');
+  rr.innerHTML = '<span class="rlabel">Resolved</span>';
+  const pill = document.createElement('span');
+  pill.className = 'pill info';
+  pill.textContent = res.resolvedText || '—';
+  rr.appendChild(pill);
+
+  // Active notes (tab 1)
+  const nl = document.getElementById('notesList');
+  nl.innerHTML = '';
+  const notes = res.activeNotes || [];
+  if (!notes.length) {
+    nl.innerHTML = '<div class="note-empty">No active notes for current selection.</div>';
+  } else {
+    for (const n of notes) {
+      const el = document.createElement('div');
+      el.className = `note ${n.kind}`;
+      const icons = { stop: '✕', caution: '!', info: 'i', go: '✓' };
+      el.innerHTML = `<div class="ico">${icons[n.kind] || 'i'}</div><div>${n.text}</div>`;
+      nl.appendChild(el);
+    }
+  }
+
+  // Update Active tab badge
+  const badge = document.getElementById('badgeActive');
+  badge.textContent = notes.length;
+  const tabActive = document.querySelector('[data-tab="active"]');
+  tabActive.classList.toggle('has-stop', notes.some(n => n.kind === 'stop'));
+  tabActive.classList.toggle('has-caution', notes.some(n => n.kind === 'caution') && !notes.some(n => n.kind === 'stop'));
+}
+
+/* ---------- Static panel populators ---------- */
+
+function populateNotesTabs() {
+  const cmdr = document.getElementById('paneCommanderList');
+  cmdr.innerHTML = '';
+  for (const n of DATA.om_a_notes.commander_tolerances) {
+    const el = document.createElement('div');
+    el.className = `note ${n.kind}`;
+    const icons = { stop: '✕', caution: '!', info: 'i' };
+    el.innerHTML = `<div class="ico">${icons[n.kind] || 'i'}</div><div>${n.text}</div>`;
+    cmdr.appendChild(el);
+  }
+
+  const proc = document.getElementById('paneProcedureList');
+  proc.innerHTML = '';
+  for (const n of DATA.om_a_notes.procedure_recording) {
+    const el = document.createElement('div');
+    el.className = `note ${n.kind}`;
+    const icons = { stop: '✕', caution: '!', info: 'i' };
+    el.innerHTML = `<div class="ico">${icons[n.kind] || 'i'}</div><div>${n.text}</div>`;
+    proc.appendChild(el);
+  }
+
+  const std = document.getElementById('paneStandardList');
+  std.innerHTML = '';
+  const entries = Object.entries(DATA.standard_notes).sort((a,b)=>parseInt(a[0])-parseInt(b[0]));
+  for (const [n, t] of entries) {
+    const el = document.createElement('div');
+    el.className = 'note info';
+    el.innerHTML = `<div class="ico">i</div><div><strong>Note ${n}.</strong> ${t}</div>`;
+    std.appendChild(el);
+  }
+}
+
+function populateReferences() {
+  const wp = document.getElementById('muskPolicy');
+  const p = DATA.policy, R = DATA.om_a_notes.rules;
+  wp.innerHTML = `
+    <h4>Operational rules (OM-A §8.2.4)</h4>
+    <ul>
+      <li><strong>Anti-icing fluid dictates table:</strong> ${R.anti_icing_dictates_table}</li>
+      <li><strong>In doubt:</strong> ${R.in_doubt_more_restrictive}</li>
+      <li><strong>Freezing drizzle ≠ Light freezing rain:</strong> ${R.freezing_drizzle_not_lfr}</li>
+      <li><strong>Active Frost criterion:</strong> ${R.active_frost_criterion}</li>
+      <li><strong>Kilfrost ABC 3:</strong> ${R.kilfrost_abc3_uses_generic}</li>
+      <li><strong>Icing conditions definition:</strong> ${R.icing_conditions_definition}</li>
+    </ul>
+    <h4>Ice pellets / small hail</h4>
+    <p>${p.ice_pellets_small_hail_prohibited}</p>
+    <h4>Flaps/Slats extended during de/anti-icing</h4>
+    <p>${p.flaps_slats_extended_formula}</p>
+    <h4>HOT start</h4>
+    <p>${p.hot_starts_at}</p>
+    <h4>Freezing point buffers</h4>
+    <ul>
+      <li>Type I fluid / water mixture: at least <code>${p.type_i_freezing_point_buffer_c}°C</code> below OAT.</li>
+      <li>Type II / IV fluid / water mixture: at least <code>${p.type_ii_iv_freezing_point_buffer_c}°C</code> below OAT.</li>
+    </ul>
+    <h4>Approved standards</h4>
+    <ul>${p.approved_standards.map(s => `<li>${s}</li>`).join('')}</ul>
+    <p><strong>Type III is NOT used in Musk Air operations.</strong></p>
+    <h4>Commander responsibility</h4>
+    <p>${p.commander_responsibility}</p>
+    <h4>Standard cautions (FAA)</h4>
+    <ul>${DATA.standard_cautions.map(c => `<li>${c}</li>`).join('')}</ul>
+  `;
+
+  // Table 54
+  const t54 = document.getElementById('table54');
+  const rows = DATA.table_54.rows;
+  let html = '<p>' + DATA.table_54.title + '. Columns: Day/Night × OAT ≤ -1°C / OAT > -1°C.</p>';
+  html += '<div style="overflow-x:auto"><table style="width:100%; border-collapse:collapse; font-family:\'JetBrains Mono\',monospace; font-size: 0.78rem; margin-top: 8px;"><thead><tr>';
+  ['Vis (SM)','Vis (m)','Day ≤-1°C','Day >-1°C','Night ≤-1°C','Night >-1°C'].forEach(h =>
+    html += `<th style="padding:6px 8px; border-bottom:1px solid var(--line-strong); text-align:left; color:var(--ink-3); font-weight:600;">${h}</th>`);
+  html += '</tr></thead><tbody>';
+  const colors = {
+    'Heavy':      'background:#fde7eb; color:#931b30;',
+    'Moderate':   'background:#fde6dc; color:#a3551b;',
+    'Light':      'background:#fef3e2; color:#8a5910;',
+    'Very Light': 'background:#e6f7ee; color:#1d6e3a;',
+  };
+  for (const r of rows) {
+    html += '<tr>';
+    html += `<td style="padding:5px 8px; border-bottom:1px solid var(--line);">${r[0]}</td>`;
+    html += `<td style="padding:5px 8px; border-bottom:1px solid var(--line); color:var(--ink-3);">${r[1]}</td>`;
+    for (let i=0;i<4;i++) {
+      const v = r[3][i];
+      html += `<td style="padding:5px 8px; border-bottom:1px solid var(--line); ${colors[v]||''} font-weight:600;">${v}</td>`;
+    }
+    html += '</tr>';
+  }
+  html += '</tbody></table></div>';
+  t54.innerHTML = html;
+
+  // Contaminant defs
+  const cd = document.getElementById('contamDefs');
+  let dhtml = '<p>From OM-A §8.2.4.3. For HOT purposes, snow grains are treated as snow.</p>';
+  for (const [name, def] of DATA.contaminant_defs) {
+    dhtml += `<h4>${name}</h4><p>${def}</p>`;
+  }
+  cd.innerHTML = dhtml;
+}
+
+/* ---------- Wiring ---------- */
+
+function wireEvents() {
+  document.getElementById('modeNormal').addEventListener('click', () => switchMode('normal'));
+  document.getElementById('modeFrost').addEventListener('click', () => switchMode('frost'));
+
+  const sw = document.getElementById('swFlaps');
+  const toggleFlaps = () => {
+    state.flapsExtended = !state.flapsExtended;
+    sw.classList.toggle('on', state.flapsExtended);
+    sw.setAttribute('aria-checked', state.flapsExtended);
+    calc();
+  };
+  sw.addEventListener('click', toggleFlaps);
+  sw.addEventListener('keydown', e => {
+    if (e.key === ' ' || e.key === 'Enter') { e.preventDefault(); toggleFlaps(); }
+  });
+
+  // Custom dropdown: toggle open/close on trigger click
+  document.getElementById('fluidTrigger').addEventListener('click', e => {
+    e.stopPropagation();
+    const dd = document.getElementById('fluidDropdown');
+    if (dd.classList.contains('open')) closeAllDropdowns();
+    else openDropdown(dd);
+  });
+  document.getElementById('precipTrigger').addEventListener('click', e => {
+    e.stopPropagation();
+    const dd = document.getElementById('precipDropdown');
+    if (dd.classList.contains('open')) closeAllDropdowns();
+    else openDropdown(dd);
+  });
+  // Click on backdrop closes
+  document.querySelectorAll('.dropdown-backdrop').forEach(bd => {
+    bd.addEventListener('click', e => { e.stopPropagation(); closeAllDropdowns(); });
+  });
+  // Bottom-sheet close buttons (mobile)
+  document.querySelectorAll('.dropdown-menu-close').forEach(btn => {
+    btn.addEventListener('click', e => { e.stopPropagation(); closeAllDropdowns(); });
+  });
+  // Stop propagation on menu body — taps on header / empty space shouldn't close
+  document.querySelectorAll('.dropdown-menu').forEach(menu => {
+    menu.addEventListener('click', e => e.stopPropagation());
+  });
+  // Click anywhere else closes
+  document.addEventListener('click', closeAllDropdowns);
+  // Escape closes
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeAllDropdowns(); });
+
+  document.getElementById('oatInput').addEventListener('input', e => {
+    const s = e.target.value.trim();
+    if (s === '' || s === '-') {
+      state.oatProvided = false;
+    } else {
+      const v = parseFloat(s);
+      if (!isNaN(v)) {
+        state.oatC = v;
+        state.oatProvided = true;
+      }
+    }
+    buildConcSeg();
+    calc();
+  });
+
+  document.getElementById('visInput').addEventListener('input', e => {
+    const v = parseFloat(e.target.value);
+    if (!isNaN(v)) state.visM = v;
+    calc();
+  });
+
+  document.getElementById('dayNightSeg').addEventListener('click', e => {
+    const b = e.target.closest('button'); if (!b) return;
+    state.dayNight = b.dataset.t;
+    document.querySelectorAll('#dayNightSeg button').forEach(x => x.classList.toggle('active', x === b));
+    calc();
+  });
+
+  document.getElementById('startTime').addEventListener('change', e => {
+    state.startTime = e.target.value;
+    calc();
+  });
+
+  document.getElementById('stepSeg').addEventListener('click', e => {
+    const b = e.target.closest('button'); if (!b) return;
+    state.steps = parseInt(b.dataset.s);
+    document.querySelectorAll('#stepSeg button').forEach(x => x.classList.toggle('active', x === b));
+    calc();
+  });
+
+  document.querySelectorAll('#frostTypeIField .frost-choice button').forEach(btn => {
+    btn.addEventListener('click', () => {
+      state.frostTypeIMat = btn.dataset.mat;
+      document.querySelectorAll('#frostTypeIField .frost-choice button')
+        .forEach(x => x.classList.toggle('active', x === btn));
+      calc();
+    });
+  });
+
+  document.getElementById('frostTypeSeg').addEventListener('click', e => {
+    const b = e.target.closest('button'); if (!b) return;
+    state.frostType = b.dataset.t;
+    document.querySelectorAll('#frostTypeSeg button').forEach(x => x.classList.toggle('active', x === b));
+    updateFrostConditionalFields();
+    buildConcSeg();
+    calc();
+  });
+
+  // Notes tabs
+  document.querySelectorAll('.notes-tab').forEach(tab => {
+    tab.addEventListener('click', () => {
+      const t = tab.dataset.tab;
+      document.querySelectorAll('.notes-tab').forEach(x => x.classList.toggle('active', x === tab));
+      document.querySelectorAll('.notes-pane').forEach(p => {
+        const want = p.id === 'pane' + t.charAt(0).toUpperCase() + t.slice(1);
+        p.classList.toggle('active', want);
+      });
+    });
+  });
+}
+
+function updateVisBlockVisibility() {
+  const entry = PRECIP_MENU.find(p => p.id === state.precipId);
+  document.getElementById('visBlock').classList.toggle('hidden', !entry.needsVis);
+}
+
+function updateFrostConditionalFields() {
+  const isTypeI = state.frostType === 'I';
+  document.getElementById('frostTypeIField').classList.toggle('hidden', !isTypeI);
+  document.getElementById('concField').classList.toggle('hidden', isTypeI);
+}
+
+function switchMode(mode) {
+  state.mode = mode;
+  document.querySelectorAll('.mode-btn').forEach(b => b.classList.toggle('active', b.dataset.mode === mode));
+  const normal = mode === 'normal';
+  document.getElementById('precipBlock').classList.toggle('hidden', !normal);
+  document.getElementById('fluidField').classList.toggle('hidden', !normal);
+  document.getElementById('frostTypeField').classList.toggle('hidden', normal);
+  document.getElementById('frostTypeIField').classList.toggle('hidden', normal || state.frostType !== 'I');
+  document.getElementById('concField').classList.toggle('hidden', !normal && state.frostType === 'I');
+  buildConcSeg();
+  calc();
+}
+
+function init() {
+  const now = new Date();
+  state.startTime = `${String(now.getHours()).padStart(2,'0')}:${String(now.getMinutes()).padStart(2,'0')}`;
+  document.getElementById('startTime').value = state.startTime;
+  buildFluidSelect();
+  buildPrecipSelect();
+  buildConcSeg();
+  updateVisBlockVisibility();
+  populateReferences();
+  populateNotesTabs();
+  wireEvents();
+  calc();
+}
+
+document.addEventListener('DOMContentLoaded', init);
+
+</script>
+
+</body>
+</html>
